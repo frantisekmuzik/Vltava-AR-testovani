@@ -1,0 +1,820 @@
+{
+  "objects": {
+    "24457116-728f-45ea-a630-9f175889265b": {
+      "components": {},
+      "geometry": null,
+      "id": "24457116-728f-45ea-a630-9f175889265b",
+      "light": {
+        "type": "ambient"
+      },
+      "material": null,
+      "name": "Ambient Light",
+      "position": [
+        10,
+        5,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "order": 0,
+      "parentId": "5a1790f6-d028-4722-a25f-ae6622c37f03"
+    },
+    "7c810787-1fa3-4604-bddc-2255da5e6512": {
+      "components": {},
+      "geometry": null,
+      "id": "7c810787-1fa3-4604-bddc-2255da5e6512",
+      "light": {
+        "intensity": 1,
+        "type": "ambient"
+      },
+      "material": null,
+      "name": "Directional Light",
+      "position": [
+        20,
+        20,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "order": 1,
+      "parentId": "5a1790f6-d028-4722-a25f-ae6622c37f03"
+    },
+    "2446e439-52ca-46bf-afb0-4aa5855940fe": {
+      "camera": {
+        "type": "perspective",
+        "xr": {
+          "desktop": "disabled",
+          "xrCameraType": "world",
+          "headset": "AR",
+          "phone": "AR",
+          "world": {
+            "disableWorldTracking": false
+          }
+        }
+      },
+      "components": {
+        "59332f31-4d48-4550-8f5c-21e936b7b4f5": {
+          "id": "59332f31-4d48-4550-8f5c-21e936b7b4f5",
+          "name": "period-switcher",
+          "parameters": {
+            "button1": {
+              "type": "entity",
+              "id": "92e26de2-7886-4625-bbca-2106eb246878"
+            },
+            "button2": {
+              "type": "entity",
+              "id": "8078a449-8d37-41b2-8ef9-03ffc14ecb5a"
+            },
+            "button3": {
+              "type": "entity",
+              "id": "8959df01-9090-4fa2-b57b-cd1cc25eaa57"
+            },
+            "button4": {
+              "type": "entity",
+              "id": "206f28e8-9724-4520-971b-074d4286f6b7"
+            },
+            "label1": {
+              "type": "entity",
+              "id": "10211482-57b4-4ce0-8b1f-5522105402b6"
+            },
+            "label2": {
+              "type": "entity",
+              "id": "72f6c21c-717f-4a0c-bc58-b0a8cdd5ad09"
+            },
+            "label3": {
+              "type": "entity",
+              "id": "d8a91ca7-29fc-4ed6-9a5d-e6341826f92a"
+            },
+            "label4": {
+              "type": "entity",
+              "id": "d617ce65-2b1a-4184-bf3b-c8389fff580c"
+            },
+            "fryModel1": {
+              "type": "entity",
+              "id": "c9630742-196b-428f-9007-2d3d405a24f3"
+            },
+            "fryModel2": {
+              "type": "entity",
+              "id": "48950640-7d5f-4540-b42a-04fd15fd2e5a"
+            },
+            "fryModel3": {
+              "type": "entity",
+              "id": "26291f93-76f7-469c-9094-3eb3ca349429"
+            },
+            "fryRiver": {
+              "type": "entity",
+              "id": "9f103e85-4329-41f9-81df-84c4fbfbba7b"
+            },
+            "zviModel1": {
+              "type": "entity",
+              "id": "d8f2f4c7-5ee4-4964-be81-c698571fbec1"
+            },
+            "zviModel2": {
+              "type": "entity",
+              "id": "ac5d5635-1c85-48e7-a3e9-38c761633264"
+            },
+            "zviModel3": {
+              "type": "entity",
+              "id": "a4def8f4-e61f-401a-a2a1-66243e2397d6"
+            },
+            "zviRiver": {
+              "type": "entity",
+              "id": "17b77231-b394-4d8f-9757-15fb539b8792"
+            }
+          }
+        },
+        "dd1b8b70-93e4-4711-838c-57c44a7ca8ba": {
+          "id": "dd1b8b70-93e4-4711-838c-57c44a7ca8ba",
+          "name": "scan-prompt",
+          "parameters": {}
+        }
+      },
+      "geometry": null,
+      "id": "2446e439-52ca-46bf-afb0-4aa5855940fe",
+      "material": null,
+      "name": "Camera",
+      "position": [
+        0,
+        5,
+        5
+      ],
+      "rotation": [
+        -1.8412919444518384e-17,
+        0.9537169517857893,
+        -0.3007057962135456,
+        -5.83983257261805e-17
+      ],
+      "scale": [
+        0.9999998646558023,
+        0.9999999931513284,
+        0.9999998715044741
+      ],
+      "order": 2,
+      "parentId": "5a1790f6-d028-4722-a25f-ae6622c37f03"
+    },
+    "8b4b39a4-6e73-4b39-a4d6-50fa4ecaa125": {
+      "id": "8b4b39a4-6e73-4b39-a4d6-50fa4ecaa125",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        400,
+        400,
+        400
+      ],
+      "geometry": null,
+      "material": null,
+      "components": {},
+      "name": "Zvikov",
+      "imageTarget": {
+        "name": "10_5_LandUse_Zvikov"
+      },
+      "order": 7.401958399382184,
+      "parentId": "5a1790f6-d028-4722-a25f-ae6622c37f03",
+      "hidden": false
+    },
+    "d82012b5-0570-43c9-9516-f5c68e010a3b": {
+      "id": "d82012b5-0570-43c9-9516-f5c68e010a3b",
+      "position": [
+        0,
+        0,
+        -0.1451661900596842
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        0.001,
+        0.001,
+        0.001
+      ],
+      "geometry": null,
+      "material": null,
+      "parentId": "8b4b39a4-6e73-4b39-a4d6-50fa4ecaa125",
+      "components": {},
+      "name": "Empty Object",
+      "order": 4
+    },
+    "d8f2f4c7-5ee4-4964-be81-c698571fbec1": {
+      "id": "d8f2f4c7-5ee4-4964-be81-c698571fbec1",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        -3.430323033447678
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.545,
+        0.545,
+        0.545
+      ],
+      "parentId": "d82012b5-0570-43c9-9516-f5c68e010a3b",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Zvikov_CO_stylized_v4.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zvikov_CO",
+      "order": 5,
+      "hidden": true
+    },
+    "ac5d5635-1c85-48e7-a3e9-38c761633264": {
+      "id": "ac5d5635-1c85-48e7-a3e9-38c761633264",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        -3.430323033447678
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.545,
+        0.545,
+        0.545
+      ],
+      "parentId": "d82012b5-0570-43c9-9516-f5c68e010a3b",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Zvikov_SMO5_stylized_v4.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zvikov_SMO5",
+      "order": 13,
+      "hidden": true
+    },
+    "a4def8f4-e61f-401a-a2a1-66243e2397d6": {
+      "id": "a4def8f4-e61f-401a-a2a1-66243e2397d6",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        -3.430323033447678
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.545,
+        0.545,
+        0.545
+      ],
+      "parentId": "d82012b5-0570-43c9-9516-f5c68e010a3b",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Zvikov_RUIAN_stylized_v4.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zvikov_RUIAN",
+      "order": 20,
+      "hidden": true
+    },
+    "17b77231-b394-4d8f-9757-15fb539b8792": {
+      "id": "17b77231-b394-4d8f-9757-15fb539b8792",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        -0.061449466853182866
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.545,
+        0.545,
+        0.545
+      ],
+      "parentId": "d82012b5-0570-43c9-9516-f5c68e010a3b",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Zvikov_Vltava_soucasny_tok.gltf"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Vltava_Zvikov",
+      "order": 27,
+      "hidden": true
+    },
+    "f52a96e9-bd77-4189-a33f-a83ab8103ae1": {
+      "id": "f52a96e9-bd77-4189-a33f-a83ab8103ae1",
+      "position": [
+        -1.9721522630525295e-31,
+        0,
+        1.7763568394002505e-15
+      ],
+      "rotation": [
+        9.059420042406933e-16,
+        -5.517342948238966e-25,
+        2.6547577596650688e-24,
+        1
+      ],
+      "scale": [
+        399.9999999999993,
+        400.00000000000256,
+        400.00000000000205
+      ],
+      "geometry": null,
+      "material": null,
+      "components": {},
+      "name": "Frymburk",
+      "imageTarget": {
+        "name": "10_4_LandUse_Frymburk"
+      },
+      "order": 7.812616116309772,
+      "parentId": "5a1790f6-d028-4722-a25f-ae6622c37f03",
+      "hidden": false
+    },
+    "78127f6a-feb4-49f0-a6ee-8a82802710f0": {
+      "id": "78127f6a-feb4-49f0-a6ee-8a82802710f0",
+      "position": [
+        0,
+        0,
+        -0.1451661900596842
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        0.001,
+        0.001,
+        0.001
+      ],
+      "geometry": null,
+      "material": null,
+      "parentId": "f52a96e9-bd77-4189-a33f-a83ab8103ae1",
+      "components": {},
+      "name": "Empty Object (1)",
+      "order": 1
+    },
+    "c9630742-196b-428f-9007-2d3d405a24f3": {
+      "id": "c9630742-196b-428f-9007-2d3d405a24f3",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        147.73762827415797
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.545,
+        0.545,
+        0.545
+      ],
+      "parentId": "78127f6a-feb4-49f0-a6ee-8a82802710f0",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Frymburk_CO_stylized_v5.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Frymburk_CO",
+      "order": 2,
+      "hidden": true
+    },
+    "48950640-7d5f-4540-b42a-04fd15fd2e5a": {
+      "id": "48950640-7d5f-4540-b42a-04fd15fd2e5a",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        147.73762827415797
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.545,
+        0.545,
+        0.545
+      ],
+      "parentId": "78127f6a-feb4-49f0-a6ee-8a82802710f0",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Frymburk_SMO5_stylized_v5.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Frymburk_SMO5",
+      "order": 6,
+      "hidden": true
+    },
+    "26291f93-76f7-469c-9094-3eb3ca349429": {
+      "id": "26291f93-76f7-469c-9094-3eb3ca349429",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        147.73762827415797
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.545,
+        0.545,
+        0.545
+      ],
+      "parentId": "78127f6a-feb4-49f0-a6ee-8a82802710f0",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Frymburk_RUIAN_stylized_v6.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Frymburk_RUIAN",
+      "order": 10,
+      "hidden": false
+    },
+    "9f103e85-4329-41f9-81df-84c4fbfbba7b": {
+      "id": "9f103e85-4329-41f9-81df-84c4fbfbba7b",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        147.71243929481355
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.545,
+        0.545,
+        0.545
+      ],
+      "parentId": "78127f6a-feb4-49f0-a6ee-8a82802710f0",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Frymburk_Vltava_soucasny_tok.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Vltava_Frymburk",
+      "order": 14,
+      "hidden": true
+    },
+    "c0d8ce2a-ef87-4573-8d28-e40d75c2b26c": {
+      "id": "c0d8ce2a-ef87-4573-8d28-e40d75c2b26c",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        -3.430323033447678
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.545,
+        0.545,
+        0.545
+      ],
+      "geometry": null,
+      "material": null,
+      "parentId": "d82012b5-0570-43c9-9516-f5c68e010a3b",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Zvikov_legenda.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zvikov_legenda.glb",
+      "order": 2.542036610693459
+    },
+    "48d1396c-1fcc-4012-b633-f45cfe671069": {
+      "id": "48d1396c-1fcc-4012-b633-f45cfe671069",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        147.73762827415797
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.545,
+        0.545,
+        0.545
+      ],
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Frymburk_legenda.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Frymburk_legenda",
+      "order": -0.8844611817770867,
+      "parentId": "78127f6a-feb4-49f0-a6ee-8a82802710f0",
+      "hidden": false
+    },
+    "2499a151-b551-4b4e-8361-1124671d64ca": {
+      "id": "2499a151-b551-4b4e-8361-1124671d64ca",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "geometry": null,
+      "material": null,
+      "parentId": "d8f2f4c7-5ee4-4964-be81-c698571fbec1",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/popisky/Zvikov_CO_popisky.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zvikov_CO_popisky.glb",
+      "order": 13.117368885348863
+    },
+    "29794e11-a931-4b96-b1e8-8ea320665f70": {
+      "id": "29794e11-a931-4b96-b1e8-8ea320665f70",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "geometry": null,
+      "material": null,
+      "parentId": "ac5d5635-1c85-48e7-a3e9-38c761633264",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/popisky/Zvikov_SMO5_popisky.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zvikov_SMO5_popisky.glb",
+      "order": 20.572992414444407
+    },
+    "35e6f7ab-efbf-44d0-96f8-94ad7e6bffd3": {
+      "id": "35e6f7ab-efbf-44d0-96f8-94ad7e6bffd3",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "geometry": null,
+      "material": null,
+      "parentId": "a4def8f4-e61f-401a-a2a1-66243e2397d6",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/popisky/Zvikov_RUIAN_popisky.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zvikov_RUIAN_popisky.glb",
+      "order": 27.141249802770023
+    },
+    "de2c337e-82d9-4c2f-831f-6ffaf85d8352": {
+      "id": "de2c337e-82d9-4c2f-831f-6ffaf85d8352",
+      "position": [
+        0,
+        6.661338147750939e-14,
+        -5.679798517591285e-29
+      ],
+      "rotation": [
+        4.930380657631324e-32,
+        1.8367099231597516e-40,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "geometry": null,
+      "material": null,
+      "parentId": "c9630742-196b-428f-9007-2d3d405a24f3",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/popisky/Frymburk_CO_popisky.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Frymburk_CO_popisky.glb",
+      "order": 1.7623520040933895
+    },
+    "cb152693-d369-471d-af3d-0c40c9b085a4": {
+      "id": "cb152693-d369-471d-af3d-0c40c9b085a4",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "geometry": null,
+      "material": null,
+      "parentId": "48950640-7d5f-4540-b42a-04fd15fd2e5a",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/popisky/Frymburk_SMO5_popisky.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Frymburk_SMO5_popisky.glb",
+      "order": 1.8040313561611279
+    },
+    "b01a53e6-0391-4665-bc4d-9d29eebb613f": {
+      "id": "b01a53e6-0391-4665-bc4d-9d29eebb613f",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "geometry": null,
+      "material": null,
+      "parentId": "26291f93-76f7-469c-9094-3eb3ca349429",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/popisky/Frymburk_RUIAN_popisky.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Frymburk_RUIAN_popisky.glb",
+      "order": 1.1904957954486284
+    }
+  },
+  "spaces": {
+    "5a1790f6-d028-4722-a25f-ae6622c37f03": {
+      "id": "5a1790f6-d028-4722-a25f-ae6622c37f03",
+      "name": "Main",
+      "activeCamera": "2446e439-52ca-46bf-afb0-4aa5855940fe"
+    }
+  },
+  "entrySpaceId": "5a1790f6-d028-4722-a25f-ae6622c37f03",
+  "runtimeVersion": {
+    "type": "version",
+    "level": "major",
+    "major": 2,
+    "minor": 0,
+    "patch": 0
+  },
+  "inputs": {
+    "default": []
+  },
+  "activeMap": "default"
+}

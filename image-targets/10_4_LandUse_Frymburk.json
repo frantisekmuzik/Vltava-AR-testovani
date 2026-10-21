@@ -1,0 +1,23 @@
+{
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 120,
+    "width": 6431,
+    "height": 8575,
+    "isRotated": false,
+    "originalWidth": 6673,
+    "originalHeight": 8575
+  },
+  "imagePath": "image-targets/10_4_LandUse_Frymburk_luminance.png",
+  "metadata": null,
+  "name": "10_4_LandUse_Frymburk",
+  "resources": {
+    "originalImage": "10_4_LandUse_Frymburk_original.png",
+    "croppedImage": "10_4_LandUse_Frymburk_cropped.png",
+    "thumbnailImage": "10_4_LandUse_Frymburk_thumbnail.png",
+    "luminanceImage": "10_4_LandUse_Frymburk_luminance.png"
+  },
+  "created": 1792010692325,
+  "updated": 1792010692325
+}

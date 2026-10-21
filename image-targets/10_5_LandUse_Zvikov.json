@@ -1,0 +1,23 @@
+{
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 244,
+    "width": 6431,
+    "height": 8575,
+    "isRotated": false,
+    "originalWidth": 6921,
+    "originalHeight": 8575
+  },
+  "imagePath": "image-targets/10_5_LandUse_Zvikov_luminance.png",
+  "metadata": null,
+  "name": "10_5_LandUse_Zvikov",
+  "resources": {
+    "originalImage": "10_5_LandUse_Zvikov_original.png",
+    "croppedImage": "10_5_LandUse_Zvikov_cropped.png",
+    "thumbnailImage": "10_5_LandUse_Zvikov_thumbnail.png",
+    "luminanceImage": "10_5_LandUse_Zvikov_luminance.png"
+  },
+  "created": 1788456651033,
+  "updated": 1788456651033
+}
