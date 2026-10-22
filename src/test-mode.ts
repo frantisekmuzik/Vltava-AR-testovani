@@ -170,36 +170,25 @@ ecs.registerComponent({
     const dbg = /ladeni/.test(window.location.search)
     const dbgLog: string[] = []
     const note = (m: string) => { if (dbg) { dbgLog.push(m); if (dbgLog.length > 4) dbgLog.shift(); console.log('test-mode:', m); refreshUi() } }
-    const hasEv = !!(ev && ev.IMAGE_FOUND && ev.IMAGE_LOST)
-    TERRS.forEach((t) => {
-      const te = targetEid(t)
-      if (te && hasEv) {
-        const f = () => setFound(t), l = () => setLost(t)
-        try {
-          world.events.addListener(te, ev.IMAGE_FOUND, f); world.events.addListener(te, ev.IMAGE_UPDATED || ev.IMAGE_FOUND, f); world.events.addListener(te, ev.IMAGE_LOST, l)
-          listeners.push(() => { try { world.events.removeListener(te, ev.IMAGE_FOUND, f); world.events.removeListener(te, ev.IMAGE_UPDATED || ev.IMAGE_FOUND, f); world.events.removeListener(te, ev.IMAGE_LOST, l) } catch (err) { /* nic */ } })
-          registered[t] = true
-        } catch (err) { console.error(err) }
-      }
-    })
-    // druhá cesta: globální poslech (nezávislý na entitách), území se pozná podle názvu image targetu
+    // události image targetu: v tomto projektu fungují globální REALITY_IMAGE_* (stejně jako v tlacitka.ts a scan-prompt.ts)
+    const FOUND = ev && ev.REALITY_IMAGE_FOUND, LOST = ev && ev.REALITY_IMAGE_LOST, UPD = ev && ev.REALITY_IMAGE_UPDATED
     let globalOk = false
     try {
       const gid = W.events && W.events.globalId
-      if (hasEv && gid) {
+      if (FOUND && LOST && gid) {
         const terrOf = (e: any): Terr | null => {
-          const nm = String((e && e.data && (e.data.name || e.data.imageTarget)) || '')
-          return TERRS.find(t => nm.indexOf(TARGET_NAMES[t]) >= 0) || null
+          const nm = String((e && e.data && (e.data.name || e.data.imageTarget)) || '').toLowerCase()
+          return TERRS.find(t => nm.indexOf(TARGET_NAMES[t].toLowerCase()) >= 0) || null
         }
-        const gf = (e: any) => { const t = terrOf(e); if (t) { note('nalezen ' + t); setFound(t) } }
+        const gf = (e: any) => { const t = terrOf(e); note('nalezen ' + String(e && e.data && e.data.name) + ' → ' + t); if (t) setFound(t) }
         const gl = (e: any) => { const t = terrOf(e); if (t) { note('ztracen ' + t); setLost(t) } }
-        world.events.addListener(gid, ev.IMAGE_FOUND, gf); world.events.addListener(gid, ev.IMAGE_UPDATED || ev.IMAGE_FOUND, gf); world.events.addListener(gid, ev.IMAGE_LOST, gl)
+        world.events.addListener(gid, FOUND, gf); world.events.addListener(gid, UPD || FOUND, gf); world.events.addListener(gid, LOST, gl)
         globalOk = true
       }
     } catch (err) { console.error(err) }
     // pokud některé území nemá spolehlivé sledování, objeví se vlevo dole drobné tlačítko pro ruční přepnutí území
-    fallback = !globalOk && TERRS.some(t => !registered[t])
-    if (fallback && !active) active = TERRS.find(t => registered[t] === false) || 'zvi'
+    fallback = !globalOk
+    if (fallback && !active) active = 'zvi'
     if (fallback) console.warn('test-mode: sledování image targetu není u všech území k dispozici', JSON.stringify(registered), 'global:', globalOk)
     note('cíle: ' + TERRS.map(t => t + (registered[t] ? '✓' : '✗')).join(' ') + ' global:' + (globalOk ? '✓' : '✗'))
     init(); rebuildBtns()
