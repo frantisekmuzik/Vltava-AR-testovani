@@ -123,7 +123,19 @@
               "type": "entity",
               "id": "c841156b-6a0f-4f4e-aa17-7460694be5dd"
             },
-            "zacScale": 0
+            "zacScale": 0,
+            "zviTarget": {
+              "type": "entity",
+              "id": "8b4b39a4-6e73-4b39-a4d6-50fa4ecaa125"
+            },
+            "fryTarget": {
+              "type": "entity",
+              "id": "f52a96e9-bd77-4189-a33f-a83ab8103ae1"
+            },
+            "zacTarget": {
+              "type": "entity",
+              "id": "92842a39-eb97-4f70-a9a5-8b605c82cb20"
+            }
           }
         },
         "dd1b8b70-93e4-4711-838c-57c44a7ca8ba": {

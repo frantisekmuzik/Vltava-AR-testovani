@@ -2,60 +2,6 @@
 export type TestTask = {id: string, set: number, terr: 'zvi' | 'fry' | 'zac', period: 'CO' | 'SMO5' | 'RUIAN' | 'ALL', files: Record<string, string>}
 export const TEST_TASKS: TestTask[] = [
   {
-    "id": "1-1",
-    "set": 1,
-    "terr": "zvi",
-    "period": "CO",
-    "files": {
-      "CO": "assets/test/ukol_1-1_Zvikov.glb"
-    }
-  },
-  {
-    "id": "1-2",
-    "set": 1,
-    "terr": "zvi",
-    "period": "CO",
-    "files": {
-      "CO": "assets/test/ukol_1-2_Zvikov.glb"
-    }
-  },
-  {
-    "id": "1-3",
-    "set": 1,
-    "terr": "zvi",
-    "period": "CO",
-    "files": {
-      "CO": "assets/test/ukol_1-3_Zvikov.glb"
-    }
-  },
-  {
-    "id": "1-4",
-    "set": 1,
-    "terr": "fry",
-    "period": "CO",
-    "files": {
-      "CO": "assets/test/ukol_1-4_Frymburk.glb"
-    }
-  },
-  {
-    "id": "1-5",
-    "set": 1,
-    "terr": "fry",
-    "period": "CO",
-    "files": {
-      "CO": "assets/test/ukol_1-5_Frymburk.glb"
-    }
-  },
-  {
-    "id": "1-6",
-    "set": 1,
-    "terr": "fry",
-    "period": "CO",
-    "files": {
-      "CO": "assets/test/ukol_1-6_Frymburk.glb"
-    }
-  },
-  {
     "id": "2-1",
     "set": 2,
     "terr": "zvi",

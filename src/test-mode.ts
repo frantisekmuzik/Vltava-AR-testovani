@@ -93,7 +93,9 @@ ecs.registerComponent({
       const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.style.cssText = btnCss(w)
       b.addEventListener('click', (ev) => { ev.stopPropagation(); fn() }); parent.appendChild(b); return b
     }
+    const VISIBLE_SETS = [0, 2, 3, 4]   // sada 1 (Landuse) odebrána, čísla ostatních sad zůstávají
     const setBtns = SETS.map((n, i) => mk(rowSets, `${i} · ${n}`, 80, () => { task = TEST_TASKS.find(t => t.set === i)!; period = 0; riverOn = false; apply() }))
+    setBtns.forEach((b, i) => { if (!VISIBLE_SETS.includes(i)) b.style.display = 'none' })
     const taskBtns = [0, 1, 2, 3, 4, 5].map(i => mk(rowTasks, `Úloha ${i + 1}`, 64, () => {
       const t = TEST_TASKS.find(x => x.set === task.set && x.id.endsWith('-' + (i + 1)))
       if (t) { task = t; period = 0; riverOn = false; apply() }
@@ -103,7 +105,7 @@ ecs.registerComponent({
     const perBtns = PERIOD_LABELS.map((n, i) => mk(bottom, n, 110, () => { period = i; apply() }))
 
     const refreshUi = () => {
-      setBtns.forEach((b, i) => { b.style.background = task.set === i ? RED_HI : RED })
+      setBtns.forEach((b, i) => { b.style.background = task.set === i ? RED_HI : RED })   // sada 1 je skrytá natrvalo
       taskBtns.forEach((b, i) => {
         b.style.background = task.id.endsWith('-' + (i + 1)) ? RED_HI : RED
         b.style.display = TEST_TASKS.some(x => x.set === task.set && x.id.endsWith('-' + (i + 1))) ? 'flex' : 'none'   // zácvik má jen 4 úlohy
