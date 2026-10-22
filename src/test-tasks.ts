@@ -1,5 +1,5 @@
 // Vygenerováno – seznam testovacích úloh a jejich značek (GLB)
-export type TestTask = {id: string, set: number, terr: 'zvi' | 'fry' | 'zac', period: 'CO' | 'SMO5' | 'RUIAN' | 'ALL', files: Record<string, string>}
+export type TestTask = {id: string, set: number, terr: 'zvi' | 'fry', period: 'CO' | 'SMO5' | 'RUIAN' | 'ALL', files: Record<string, string>}
 export const TEST_TASKS: TestTask[] = [
   {
     "id": "1-1",
@@ -227,44 +227,6 @@ export const TEST_TASKS: TestTask[] = [
     "period": "CO",
     "files": {
       "CO": "assets/test/ukol_4-6_Frymburk.glb"
-    }
-  },
-  {
-    "id": "0-1",
-    "set": 0,
-    "terr": "zac",
-    "period": "CO",
-    "files": {
-      "CO": "assets/test/ukol_0-1_Zacvik.glb"
-    }
-  },
-  {
-    "id": "0-2",
-    "set": 0,
-    "terr": "zac",
-    "period": "ALL",
-    "files": {
-      "CO": "assets/test/ukol_0-2_Zacvik_CO.glb",
-      "SMO5": "assets/test/ukol_0-2_Zacvik_SMO5.glb",
-      "RUIAN": "assets/test/ukol_0-2_Zacvik_RUIAN.glb"
-    }
-  },
-  {
-    "id": "0-3",
-    "set": 0,
-    "terr": "zac",
-    "period": "CO",
-    "files": {
-      "CO": "assets/test/ukol_0-3_Zacvik.glb"
-    }
-  },
-  {
-    "id": "0-4",
-    "set": 0,
-    "terr": "zac",
-    "period": "CO",
-    "files": {
-      "CO": "assets/test/ukol_0-4_Zacvik.glb"
     }
   }
 ]
