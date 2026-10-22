@@ -7,9 +7,9 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "zvi",
     "period": "ALL",
     "files": {
-      "CO": "assets/test/ukol_2-1_Zvikov_CO.glb",
-      "SMO5": "assets/test/ukol_2-1_Zvikov_SMO5.glb",
-      "RUIAN": "assets/test/ukol_2-1_Zvikov_RUIAN.glb"
+      "CO": "assets/test/sada_1-1_Zvikov_CO.glb",
+      "SMO5": "assets/test/sada_1-1_Zvikov_SMO5.glb",
+      "RUIAN": "assets/test/sada_1-1_Zvikov_RUIAN.glb"
     }
   },
   {
@@ -18,9 +18,9 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "zvi",
     "period": "ALL",
     "files": {
-      "CO": "assets/test/ukol_2-2_Zvikov_CO.glb",
-      "SMO5": "assets/test/ukol_2-2_Zvikov_SMO5.glb",
-      "RUIAN": "assets/test/ukol_2-2_Zvikov_RUIAN.glb"
+      "CO": "assets/test/sada_1-2_Zvikov_CO.glb",
+      "SMO5": "assets/test/sada_1-2_Zvikov_SMO5.glb",
+      "RUIAN": "assets/test/sada_1-2_Zvikov_RUIAN.glb"
     }
   },
   {
@@ -29,9 +29,9 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "zvi",
     "period": "ALL",
     "files": {
-      "CO": "assets/test/ukol_2-3_Zvikov_CO.glb",
-      "SMO5": "assets/test/ukol_2-3_Zvikov_SMO5.glb",
-      "RUIAN": "assets/test/ukol_2-3_Zvikov_RUIAN.glb"
+      "CO": "assets/test/sada_1-3_Zvikov_CO.glb",
+      "SMO5": "assets/test/sada_1-3_Zvikov_SMO5.glb",
+      "RUIAN": "assets/test/sada_1-3_Zvikov_RUIAN.glb"
     }
   },
   {
@@ -40,9 +40,9 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "fry",
     "period": "ALL",
     "files": {
-      "CO": "assets/test/ukol_2-4_Frymburk_CO.glb",
-      "SMO5": "assets/test/ukol_2-4_Frymburk_SMO5.glb",
-      "RUIAN": "assets/test/ukol_2-4_Frymburk_RUIAN.glb"
+      "CO": "assets/test/sada_1-4_Frymburk_CO.glb",
+      "SMO5": "assets/test/sada_1-4_Frymburk_SMO5.glb",
+      "RUIAN": "assets/test/sada_1-4_Frymburk_RUIAN.glb"
     }
   },
   {
@@ -51,9 +51,9 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "fry",
     "period": "ALL",
     "files": {
-      "CO": "assets/test/ukol_2-5_Frymburk_CO.glb",
-      "SMO5": "assets/test/ukol_2-5_Frymburk_SMO5.glb",
-      "RUIAN": "assets/test/ukol_2-5_Frymburk_RUIAN.glb"
+      "CO": "assets/test/sada_1-5_Frymburk_CO.glb",
+      "SMO5": "assets/test/sada_1-5_Frymburk_SMO5.glb",
+      "RUIAN": "assets/test/sada_1-5_Frymburk_RUIAN.glb"
     }
   },
   {
@@ -62,9 +62,9 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "fry",
     "period": "ALL",
     "files": {
-      "CO": "assets/test/ukol_2-6_Frymburk_CO.glb",
-      "SMO5": "assets/test/ukol_2-6_Frymburk_SMO5.glb",
-      "RUIAN": "assets/test/ukol_2-6_Frymburk_RUIAN.glb"
+      "CO": "assets/test/sada_1-6_Frymburk_CO.glb",
+      "SMO5": "assets/test/sada_1-6_Frymburk_SMO5.glb",
+      "RUIAN": "assets/test/sada_1-6_Frymburk_RUIAN.glb"
     }
   },
   {
@@ -73,7 +73,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "zvi",
     "period": "SMO5",
     "files": {
-      "SMO5": "assets/test/ukol_3-1_Zvikov.glb"
+      "SMO5": "assets/test/sada_2-1_Zvikov.glb"
     }
   },
   {
@@ -82,7 +82,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "zvi",
     "period": "SMO5",
     "files": {
-      "SMO5": "assets/test/ukol_3-2_Zvikov.glb"
+      "SMO5": "assets/test/sada_2-2_Zvikov.glb"
     }
   },
   {
@@ -91,7 +91,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "zvi",
     "period": "SMO5",
     "files": {
-      "SMO5": "assets/test/ukol_3-3_Zvikov.glb"
+      "SMO5": "assets/test/sada_2-3_Zvikov.glb"
     }
   },
   {
@@ -100,7 +100,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "fry",
     "period": "SMO5",
     "files": {
-      "SMO5": "assets/test/ukol_3-4_Frymburk.glb"
+      "SMO5": "assets/test/sada_2-4_Frymburk.glb"
     }
   },
   {
@@ -109,7 +109,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "fry",
     "period": "SMO5",
     "files": {
-      "SMO5": "assets/test/ukol_3-5_Frymburk.glb"
+      "SMO5": "assets/test/sada_2-5_Frymburk.glb"
     }
   },
   {
@@ -118,7 +118,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "fry",
     "period": "SMO5",
     "files": {
-      "SMO5": "assets/test/ukol_3-6_Frymburk.glb"
+      "SMO5": "assets/test/sada_2-6_Frymburk.glb"
     }
   },
   {
@@ -127,7 +127,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "zvi",
     "period": "CO",
     "files": {
-      "CO": "assets/test/ukol_4-1_Zvikov.glb"
+      "CO": "assets/test/sada_3-1_Zvikov.glb"
     }
   },
   {
@@ -136,7 +136,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "zvi",
     "period": "CO",
     "files": {
-      "CO": "assets/test/ukol_4-2_Zvikov.glb"
+      "CO": "assets/test/sada_3-2_Zvikov.glb"
     }
   },
   {
@@ -145,7 +145,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "zvi",
     "period": "CO",
     "files": {
-      "CO": "assets/test/ukol_4-3_Zvikov.glb"
+      "CO": "assets/test/sada_3-3_Zvikov.glb"
     }
   },
   {
@@ -154,7 +154,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "fry",
     "period": "CO",
     "files": {
-      "CO": "assets/test/ukol_4-4_Frymburk.glb"
+      "CO": "assets/test/sada_3-4_Frymburk.glb"
     }
   },
   {
@@ -163,7 +163,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "fry",
     "period": "CO",
     "files": {
-      "CO": "assets/test/ukol_4-5_Frymburk.glb"
+      "CO": "assets/test/sada_3-5_Frymburk.glb"
     }
   },
   {
@@ -172,7 +172,7 @@ export const TEST_TASKS: TestTask[] = [
     "terr": "fry",
     "period": "CO",
     "files": {
-      "CO": "assets/test/ukol_4-6_Frymburk.glb"
+      "CO": "assets/test/sada_3-6_Frymburk.glb"
     }
   },
   {
