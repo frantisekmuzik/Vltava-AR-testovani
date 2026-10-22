@@ -132,7 +132,9 @@ ecs.registerComponent({
         const next = TEST_TASKS.find(t => t.terr === terr && t.set === task.set) || TEST_TASKS.find(t => t.terr === terr && t.set !== 0) || TEST_TASKS.find(t => t.terr === terr)
         if (next) { task = next; period = 0; riverOn = false; apply(); return }
       }
-      refreshUi()
+      // při každém (znovu)nalezení mapy vytvoř značku znovu: na mobilu se jinak mohla vytvořit dřív, než byl cíl sledován
+      apply()
+      setTimeout(apply, 800)
     })
     apply()
     // pojistka: ve scéně je Frymburk_RUIAN ve výchozím stavu viditelný, proto po načtení stav ještě dvakrát vynutíme
