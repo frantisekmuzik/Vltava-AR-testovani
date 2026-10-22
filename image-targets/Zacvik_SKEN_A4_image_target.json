@@ -1,0 +1,23 @@
+{
+  "type": "PLANAR",
+  "properties": {
+    "top": 100,
+    "left": 0,
+    "width": 2480,
+    "height": 3306,
+    "isRotated": true,
+    "originalWidth": 2480,
+    "originalHeight": 3508
+  },
+  "imagePath": "image-targets/Zacvik_SKEN_A4_image_target_luminance.png",
+  "metadata": null,
+  "name": "Zacvik_SKEN_A4_image_target",
+  "resources": {
+    "originalImage": "Zacvik_SKEN_A4_image_target_original.png",
+    "croppedImage": "Zacvik_SKEN_A4_image_target_cropped.png",
+    "thumbnailImage": "Zacvik_SKEN_A4_image_target_thumbnail.png",
+    "luminanceImage": "Zacvik_SKEN_A4_image_target_luminance.png"
+  },
+  "created": 1792690441481,
+  "updated": 1792690441481
+}
