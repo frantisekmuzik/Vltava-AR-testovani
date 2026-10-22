@@ -73,40 +73,8 @@
       "components": {
         "59332f31-4d48-4550-8f5c-21e936b7b4f5": {
           "id": "59332f31-4d48-4550-8f5c-21e936b7b4f5",
-          "name": "period-switcher",
+          "name": "test-mode",
           "parameters": {
-            "button1": {
-              "type": "entity",
-              "id": "92e26de2-7886-4625-bbca-2106eb246878"
-            },
-            "button2": {
-              "type": "entity",
-              "id": "8078a449-8d37-41b2-8ef9-03ffc14ecb5a"
-            },
-            "button3": {
-              "type": "entity",
-              "id": "8959df01-9090-4fa2-b57b-cd1cc25eaa57"
-            },
-            "button4": {
-              "type": "entity",
-              "id": "206f28e8-9724-4520-971b-074d4286f6b7"
-            },
-            "label1": {
-              "type": "entity",
-              "id": "10211482-57b4-4ce0-8b1f-5522105402b6"
-            },
-            "label2": {
-              "type": "entity",
-              "id": "72f6c21c-717f-4a0c-bc58-b0a8cdd5ad09"
-            },
-            "label3": {
-              "type": "entity",
-              "id": "d8a91ca7-29fc-4ed6-9a5d-e6341826f92a"
-            },
-            "label4": {
-              "type": "entity",
-              "id": "d617ce65-2b1a-4184-bf3b-c8389fff580c"
-            },
             "fryModel1": {
               "type": "entity",
               "id": "c9630742-196b-428f-9007-2d3d405a24f3"
@@ -138,7 +106,24 @@
             "zviRiver": {
               "type": "entity",
               "id": "17b77231-b394-4d8f-9757-15fb539b8792"
-            }
+            },
+            "zacModel1": {
+              "type": "entity",
+              "id": "88ef4d18-737c-4ea3-a615-a5baec9660ef"
+            },
+            "zacModel2": {
+              "type": "entity",
+              "id": "f8f51131-1e71-42d6-b67f-987e097feed7"
+            },
+            "zacModel3": {
+              "type": "entity",
+              "id": "41046860-a14b-44e9-8e59-33e970379f26"
+            },
+            "zacRiver": {
+              "type": "entity",
+              "id": "c841156b-6a0f-4f4e-aa17-7460694be5dd"
+            },
+            "zacScale": 0
           }
         },
         "dd1b8b70-93e4-4711-838c-57c44a7ca8ba": {
@@ -796,6 +781,220 @@
       },
       "name": "Frymburk_RUIAN_popisky.glb",
       "order": 1.1904957954486284
+    },
+    "c4389c17-eff0-45de-bb30-7883895e3957": {
+      "id": "c4389c17-eff0-45de-bb30-7883895e3957",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        400,
+        400,
+        400
+      ],
+      "geometry": null,
+      "material": null,
+      "components": {},
+      "name": "Zacvik",
+      "imageTarget": {
+        "name": "Zacvik_SKEN_A4_image_target"
+      },
+      "order": 28.141249802770023,
+      "parentId": "5a1790f6-d028-4722-a25f-ae6622c37f03",
+      "hidden": false
+    },
+    "15698efc-917c-4d06-a90a-dfbe18ffaa23": {
+      "id": "15698efc-917c-4d06-a90a-dfbe18ffaa23",
+      "position": [
+        0,
+        0,
+        -0.1451661900596842
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        0.001,
+        0.001,
+        0.001
+      ],
+      "geometry": null,
+      "material": null,
+      "parentId": "c4389c17-eff0-45de-bb30-7883895e3957",
+      "components": {},
+      "name": "Empty Object (2)",
+      "order": 1
+    },
+    "88ef4d18-737c-4ea3-a615-a5baec9660ef": {
+      "id": "88ef4d18-737c-4ea3-a615-a5baec9660ef",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        147.73762827415797
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.5305,
+        0.5305,
+        0.5305
+      ],
+      "parentId": "15698efc-917c-4d06-a90a-dfbe18ffaa23",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Zacvik_CO.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zacvik_CO",
+      "order": 2,
+      "hidden": true
+    },
+    "f8f51131-1e71-42d6-b67f-987e097feed7": {
+      "id": "f8f51131-1e71-42d6-b67f-987e097feed7",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        147.73762827415797
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.5305,
+        0.5305,
+        0.5305
+      ],
+      "parentId": "15698efc-917c-4d06-a90a-dfbe18ffaa23",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Zacvik_SMO5.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zacvik_SMO5",
+      "order": 3,
+      "hidden": true
+    },
+    "41046860-a14b-44e9-8e59-33e970379f26": {
+      "id": "41046860-a14b-44e9-8e59-33e970379f26",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        147.73762827415797
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.5305,
+        0.5305,
+        0.5305
+      ],
+      "parentId": "15698efc-917c-4d06-a90a-dfbe18ffaa23",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Zacvik_RUIAN.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zacvik_RUIAN",
+      "order": 4,
+      "hidden": true
+    },
+    "c841156b-6a0f-4f4e-aa17-7460694be5dd": {
+      "id": "c841156b-6a0f-4f4e-aa17-7460694be5dd",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        147.73762827415797
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.5305,
+        0.5305,
+        0.5305
+      ],
+      "parentId": "15698efc-917c-4d06-a90a-dfbe18ffaa23",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Zacvik_nadrz.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Nadrz_Zacvik",
+      "order": 5,
+      "hidden": true
+    },
+    "549b5796-985a-4fed-8648-3aaa20d2c100": {
+      "id": "549b5796-985a-4fed-8648-3aaa20d2c100",
+      "position": [
+        -0.000004625730668392834,
+        0,
+        147.73762827415797
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "scale": [
+        0.5305,
+        0.5305,
+        0.5305
+      ],
+      "parentId": "15698efc-917c-4d06-a90a-dfbe18ffaa23",
+      "components": {},
+      "gltfModel": {
+        "src": {
+          "type": "asset",
+          "asset": "assets/modely/Zacvik_legenda.glb"
+        },
+        "animationClip": "",
+        "loop": true
+      },
+      "name": "Zacvik_legenda",
+      "order": 6,
+      "hidden": false
     }
   },
   "spaces": {
