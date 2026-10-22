@@ -7,7 +7,7 @@ import {TEST_TASKS, TestTask} from './test-tasks'
 // (stejné parametry: fryModel1-3, fryRiver, zviModel1-3, zviRiver, k tomu zacModel1-3, zacRiver pro zácvikové území).
 // Značky jsou potomky modelu terénu. Sada 0 = zácvik (fiktivní území, úlohy 0-1 až 0-4).
 
-const SETS = ['Zácvik', 'Landuse', 'Změny', 'Výška', 'Měřítko']   // index = číslo sady (0 = zácvik)
+const SETS = ['0 · Zácvik', '', '1 · Změny', '2 · Výška', '3 · Vzdálenost']   // index = interní číslo sady (0 = zácvik, 1 odebrána); text = název na tlačítku
 const PERIOD_LABELS = ['19. století', '20. století', '21. století']
 const PERIODS = ['CO', 'SMO5', 'RUIAN']
 const HIGHLIGHT = '#26408C'   // modrá: období a řeka
@@ -43,7 +43,7 @@ ecs.registerComponent({
     const hide = (e: ecs.Eid) => { try { if (e && !ecs.Hidden.has(world, e)) ecs.Hidden.set(world, e, {}) } catch (err) { console.error(err) } }
     const show = (e: ecs.Eid) => { try { if (e && ecs.Hidden.has(world, e)) ecs.Hidden.remove(world, e) } catch (err) { console.error(err) } }
 
-    const isPeriodTask = () => task.set === 2 || task.id === '0-2'   // přepínání období: sada 2 a zácvik 0-2
+    const isPeriodTask = () => task.set === 2   // přepínání období: sada Změny (u všech území)
     const periodIndex = () => (isPeriodTask() ? period : PERIODS.indexOf(task.period))
 
     const apply = () => {
@@ -93,11 +93,16 @@ ecs.registerComponent({
       const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.style.cssText = btnCss(w)
       b.addEventListener('click', (ev) => { ev.stopPropagation(); fn() }); parent.appendChild(b); return b
     }
-    const VISIBLE_SETS = [0, 2, 3, 4]   // sada 1 (Landuse) odebrána, čísla ostatních sad zůstávají
-    const setBtns = SETS.map((n, i) => mk(rowSets, `${i} · ${n}`, 80, () => { task = TEST_TASKS.find(t => t.set === i)!; period = 0; riverOn = false; apply() }))
-    setBtns.forEach((b, i) => { if (!VISIBLE_SETS.includes(i)) b.style.display = 'none' })
+    const VISIBLE_SETS = [2, 3, 4]   // sada 1 (Landuse) odebrána, čísla ostatních sad zůstávají
+    const setBtns = SETS.map((n, i) => mk(rowSets, n, 80, () => { task = TEST_TASKS.find(t => t.set === i && t.terr === task.terr) || TEST_TASKS.find(t => t.set === i)!; period = 0; riverOn = false; apply() }))
+    // úlohy aktuálního území v aktuální sadě; tlačítka se číslují 1–3 (u Frymburku také), ID úloh zůstávají beze změny
+    const tasksHere = () => TEST_TASKS.filter(x => x.set === task.set && x.terr === task.terr)
+    // zobrazené ID úlohy = nové číslo sady (1 Změny, 2 Výška, 3 Vzdálenost) – původní číslo úlohy (Zvíkov 1–3, Frymburk 4–6, Zácvik 1); interní ID zůstává
+    const SHOWN_SET: Record<number, number> = {2: 1, 3: 2, 4: 3}
+    const shownId = (t: TestTask) => `${SHOWN_SET[t.set]}-${t.terr === 'zac' ? 1 : t.id.split('-')[1]}`
+    const taskForBtn = (i: number): TestTask | undefined => tasksHere()[i]
     const taskBtns = [0, 1, 2, 3, 4, 5].map(i => mk(rowTasks, `Úloha ${i + 1}`, 64, () => {
-      const t = TEST_TASKS.find(x => x.set === task.set && x.id.endsWith('-' + (i + 1)))
+      const t = taskForBtn(i)
       if (t) { task = t; period = 0; riverOn = false; apply() }
     }))
     const riverBtn = mk(root, 'Řeka', 80, () => { riverOn = !riverOn; apply() })
@@ -105,17 +110,30 @@ ecs.registerComponent({
     const perBtns = PERIOD_LABELS.map((n, i) => mk(bottom, n, 110, () => { period = i; apply() }))
 
     const refreshUi = () => {
+      setBtns.forEach((b, i) => { b.style.display = VISIBLE_SETS.includes(i) ? 'flex' : 'none' })
       setBtns.forEach((b, i) => { b.style.background = task.set === i ? RED_HI : RED })   // sada 1 je skrytá natrvalo
       taskBtns.forEach((b, i) => {
-        b.style.background = task.id.endsWith('-' + (i + 1)) ? RED_HI : RED
-        b.style.display = TEST_TASKS.some(x => x.set === task.set && x.id.endsWith('-' + (i + 1))) ? 'flex' : 'none'   // zácvik má jen 4 úlohy
+        const t = taskForBtn(i)
+        b.style.background = t && t.id === task.id ? RED_HI : RED
+        b.style.display = t ? 'flex' : 'none'
       })
-      info.textContent = `${task.id} · ${({zvi: 'Zvíkov', fry: 'Frymburk', zac: 'Zácvik'} as Record<string, string>)[task.terr]}`
+      info.textContent = `${shownId(task)} · ${({zvi: 'Zvíkov', fry: 'Frymburk', zac: 'Zácvik'} as Record<string, string>)[task.terr]}`
       riverBtn.textContent = task.terr === 'zac' ? 'Nádrž' : 'Řeka'
       riverBtn.style.background = riverOn ? HIGHLIGHT : BASE
       bottom.style.display = isPeriodTask() ? 'flex' : 'none'
       perBtns.forEach((b, i) => { b.style.background = i === period ? HIGHLIGHT : BASE })
     }
+    // poslední naskenované území: zácvik zapne sadu 0, Zvíkov a Frymburk ji skryjí
+    world.events.addListener(world.events.globalId, ecs.events.REALITY_IMAGE_FOUND, (event) => {
+      const name = String((event.data as {name?: string} | undefined)?.name || '').toLowerCase()
+      const terr = name.includes('zacvik') ? 'zac' : name.includes('zvikov') ? 'zvi' : name.includes('frymburk') ? 'fry' : null
+      if (!terr) return
+      if (task.terr !== terr) {   // naskenované území určuje, ke kterému území patří úlohy a tlačítka
+        const next = TEST_TASKS.find(t => t.terr === terr && t.set === task.set) || TEST_TASKS.find(t => t.terr === terr && t.set !== 0) || TEST_TASKS.find(t => t.terr === terr)
+        if (next) { task = next; period = 0; riverOn = false; apply(); return }
+      }
+      refreshUi()
+    })
     apply()
     // pojistka: ve scéně je Frymburk_RUIAN ve výchozím stavu viditelný, proto po načtení stav ještě dvakrát vynutíme
     setTimeout(apply, 1500)

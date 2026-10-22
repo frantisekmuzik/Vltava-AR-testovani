@@ -177,40 +177,31 @@ export const TEST_TASKS: TestTask[] = [
   },
   {
     "id": "0-1",
-    "set": 0,
+    "set": 2,
     "terr": "zac",
-    "period": "CO",
+    "period": "ALL",
     "files": {
-      "CO": "assets/test/ukol_0-1_Zacvik.glb"
+      "CO": "assets/test/zac_0-1_CO.glb",
+      "SMO5": "assets/test/zac_0-1_SMO5.glb",
+      "RUIAN": "assets/test/zac_0-1_RUIAN.glb"
     }
   },
   {
     "id": "0-2",
-    "set": 0,
+    "set": 3,
     "terr": "zac",
-    "period": "ALL",
+    "period": "CO",
     "files": {
-      "CO": "assets/test/ukol_0-2_Zacvik_CO.glb",
-      "SMO5": "assets/test/ukol_0-2_Zacvik_SMO5.glb",
-      "RUIAN": "assets/test/ukol_0-2_Zacvik_RUIAN.glb"
+      "CO": "assets/test/zac_0-2.glb"
     }
   },
   {
     "id": "0-3",
-    "set": 0,
+    "set": 4,
     "terr": "zac",
     "period": "CO",
     "files": {
-      "CO": "assets/test/ukol_0-3_Zacvik.glb"
-    }
-  },
-  {
-    "id": "0-4",
-    "set": 0,
-    "terr": "zac",
-    "period": "CO",
-    "files": {
-      "CO": "assets/test/ukol_0-4_Zacvik.glb"
+      "CO": "assets/test/zac_0-3.glb"
     }
   }
 ]
