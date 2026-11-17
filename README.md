@@ -41,6 +41,19 @@ Aplikace běží přímo v prohlížeči, neinstaluje se a nepotřebuje účet.
 | `docs/` | mapy ke zkušebnímu skenování a QR kód aplikace |
 | `.github/workflows/deploy.yml` | automatický deploy na GitHub Pages |
 
+## Testovací režim (2. fáze uživatelského testu)
+
+Komponenta `test-mode` (`src/test-mode.ts`) je na kameře místo `period-switcher`. Je výhradně marker-based: úlohy se zobrazí po naskenování tištěné mapy (Zvíkov, Frymburk, případně zácvik).
+
+| Sada | Obsah | Modely |
+| --- | --- | --- |
+| 1 Změny | body A–D, tlačítky se přepíná 19., 20. a 21. století | `*_sada1_{CO,SMO5,RUIAN}.glb` |
+| 2 Výška | body A–D, vrstevnice, 2 úlohy | `*_sada2_otazka{1,2}.glb` |
+| 3 Zaplavení | body A–D, vrstevnice, 2 úlohy | `*_sada3_otazka{1,2}.glb` |
+| 4 Vzdálenost | body A a B, 3 úlohy | `*_sada4_otazka*.glb` |
+
+Každý model úlohy je samostatný GLB v `src/assets/test/` (terén s texturou, budovy, stromy, legenda s měřítkem, značky a vrstevnice). Seznam úloh je v `src/test-tasks.ts`. Označení listů odpovídá záznamníku (např. `2-Z1` = sada 2, Zvíkov, úloha 1).
+
 ## Vývoj
 
 Projekt vznikl v [8th Wall Studiu](https://www.8thwall.com/).

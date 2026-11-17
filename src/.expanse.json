@@ -91,6 +91,10 @@
               "type": "entity",
               "id": "9f103e85-4329-41f9-81df-84c4fbfbba7b"
             },
+            "fryLegend": {
+              "type": "entity",
+              "id": "48d1396c-1fcc-4012-b633-f45cfe671069"
+            },
             "zviModel1": {
               "type": "entity",
               "id": "d8f2f4c7-5ee4-4964-be81-c698571fbec1"
@@ -106,6 +110,10 @@
             "zviRiver": {
               "type": "entity",
               "id": "17b77231-b394-4d8f-9757-15fb539b8792"
+            },
+            "zviLegend": {
+              "type": "entity",
+              "id": "c0d8ce2a-ef87-4573-8d28-e40d75c2b26c"
             },
             "zacModel1": {
               "type": "entity",
