@@ -6,9 +6,9 @@ Webová aplikace rozšířené reality k atlasu **VLTAVA – Příběh řeky na 
 
 ## Vyzkoušet
 
-**Odkaz na vyzkoušení:** https://frantisekmuzik.github.io/Zvikov-AR/
+**Odkaz na vyzkoušení:** https://frantisekmuzik.github.io/Vltava-AR-testovani/
 
-Otevři odkaz na telefonu nebo naskenuj QR kód:
+Otevři odkaz na telefonu nebo naskenuj QR kód (testovací verze aplikace pro 2. fázi uživatelského testu):
 
 <img alt="QR kód pro otevření aplikace" src="./docs/qr_aplikace.png" width="220" />
 

@@ -7,3 +7,4 @@ external/** filter=lfs diff=lfs merge=lfs -text
 # modely testovacího režimu 2. fáze: běžné soubory v gitu (bez LFS)
 src/assets/test/Frymburk_*.glb -filter -diff -merge binary
 src/assets/test/Zvikov_*.glb -filter -diff -merge binary
+docs/qr_aplikace.png -filter -diff -merge binary
