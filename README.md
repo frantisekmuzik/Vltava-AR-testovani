@@ -55,8 +55,13 @@ Komponenta `test-mode` (`src/test-mode.ts`) je na kameře místo `period-switche
 
 Model každé úlohy se skládá ze dvou GLB v `src/assets/test/`:
 
-- **podklad** `{Zvikov,Frymburk}_base_{CO,SMO5,RUIAN}.glb`: terén s texturou, budovy, legenda s měřítkem. Je stejný pro všechny úlohy nad daným územím a obdobím, takže se při změně úlohy nebo sady nenačítá znovu (sady 2 a 3 sdílejí podklad SMO5, sada 4 podklad CO);
-- **vrstva úlohy** (`*_sada*_otazka*.glb`, u sady 1 `*_sada1_{CO,SMO5,RUIAN}.glb`): stromy (vyčištěné kolem značek), body A–D nebo A–B, vrstevnice a jejich popisky.
+- **podklad**, který se při změně úlohy nenačítá znovu:
+  - sada 1: `{Zvikov,Frymburk}_base_{CO,SMO5,RUIAN}.glb` (terén s texturou, budovy, legenda s měřítkem),
+  - sady 2 a 3: `*_base_sada23.glb` (podklad SMO5 + stromy + vrstevnice s popisky, sdílený oběma sadami),
+  - sada 4: `*_base_sada4.glb` (podklad CO + stromy);
+- **vrstva úlohy** (`*_sada*_otazka*.glb`): u sad 2–4 jen body A–D, resp. A–B (stovky kB); u sady 1 (`*_sada1_{CO,SMO5,RUIAN}.glb`) body a stromy příslušného období.
+
+Stromy ve sdíleném podkladu jsou jen ty, které jsou ve všech úlohách skupiny (průnik), takže žádný strom nezakrývá body žádné z úloh. Kolem bodů ostatních úloh tak mohou být drobné proluky bez stromů.
 
 Kompletní (nerozdělené) modely jsou v repozitáři Vltava-testovani-podklady. Rozdělení zajišťuje `tools/split_glb.py`. Seznam úloh je v `src/test-tasks.ts`. Označení listů odpovídá záznamníku (např. `2-Z1` = sada 2, Zvíkov, úloha 1).
 

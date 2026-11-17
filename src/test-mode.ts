@@ -281,7 +281,7 @@ ecs.registerComponent({
       const t = task.terr as 'fry' | 'zvi'
       const ents = models[t].periods
       const idx = periodIndex()
-      const want = PERIODS.map((p, i) => ({i, base: baseUrl(t, p), ov: task.files[p]})).filter(x => !!x.ov)
+      const want = PERIODS.map((p, i) => ({i, base: task.base || baseUrl(t, p), ov: task.files[p]})).filter(x => !!x.ov)
       // entity období, která úloha nepotřebuje, uvolnit
       ents.forEach((e, i) => { if (!want.some(x => x.i === i)) { clearModel(e); hide(e) } })
       const cur = want.find(x => x.i === idx)
