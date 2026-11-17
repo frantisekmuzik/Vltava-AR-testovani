@@ -43,7 +43,7 @@ ecs.registerComponent({
       [...models.zac.periods, models.zac.river].forEach((e) => { try { if (e) world.setScale(e, s.zacScale, s.zacScale, s.zacScale) } catch (err) { console.error(err) } })
     }
     let task: TestTask = TEST_TASKS[0]
-    let period = 0          // jen pro sadu 1 (přepínání období)
+    let period = 1          // jen pro sadu 1 (přepínání období); začíná obdobím z tištěné mapy (task.start)
     let marker: ecs.Eid | null = null   // jen zácvik: entita se značkami
     let riverOn = false     // řeka je u každé úlohy na začátku vypnutá, tlačítkem ji lze kdykoli zapnout
     let applyToken = 0      // nejnovější volání apply() vyhrává (rychlé přepínání úloh)
@@ -146,7 +146,7 @@ ecs.registerComponent({
       const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.style.cssText = btnCss(w)
       b.addEventListener('click', (ev) => { ev.stopPropagation(); fn() }); parent.appendChild(b); return b
     }
-    const selectTask = (t: TestTask) => { task = t; period = 0; riverOn = false; apply() }
+    const selectTask = (t: TestTask) => { task = t; period = Math.max(0, PERIODS.indexOf(t.start || 'CO')); riverOn = false; apply() }
     const setBtns = SETS.map((n, i) => mk(rowSets, n, 80, () => {
       if (i === 0) return
       selectTask(TEST_TASKS.find(t => t.set === i && t.terr === task.terr) || TEST_TASKS.find(t => t.set === i)!)
