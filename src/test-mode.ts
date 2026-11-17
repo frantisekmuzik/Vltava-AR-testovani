@@ -1,14 +1,17 @@
 import * as ecs from '@8thwall/ecs'
 import {ensureFont, FONT_FAMILY} from './fonts'
-import {TEST_TASKS, TestTask} from './test-tasks'
+import {TEST_TASKS, TestTask, baseUrl} from './test-tasks'
 
 // Testovací režim (marker-based AR): výběr sady a úlohy podle záznamníku 2. fáze.
 // Použití: komponenta "test-mode" je na Camera místo "period-switcher" (stejné parametry modelů).
 //
 // Sady (stejné jako v záznamníku): 1 Změny, 2 Výška, 3 Zaplavení, 4 Vzdálenost.
-// Zvíkov a Frymburk: každá úloha je samostatný GLB (terén s texturou, budovy, stromy, legenda, body A–D nebo A–B,
-//   vrstevnice). Model se nahraje do entity modelu daného období (zachová se její poloha a měřítko),
-//   popisky sídel jsou potomky této entity a zůstávají. Legenda ve scéně se skryje, je součástí GLB.
+// Zvíkov a Frymburk: model = sdílený podklad území a období (terén s texturou, budovy, legenda; GLB *_base_*)
+//   + vrstva úlohy (stromy, body A–D nebo A–B, vrstevnice a popisky; GLB úlohy). Podklad se nahraje do entity
+//   modelu daného období (zachová se její poloha a měřítko), vrstva úlohy je její potomek. Při změně úlohy
+//   nad stejným podkladem se mění jen vrstva. Popisky sídel jsou potomky entity a zůstávají.
+//   Legenda ve scéně se skryje, je součástí podkladu.
+// Velikost modelu: stažení/roztažení dvěma prsty (pinch), hodnota se při změně sady a úlohy zachová.
 // Zácvik: model obsahuje jen značky, terén se bere ze scény (původní postup).
 
 const SETS = ['', '1 · Změny', '2 · Výška', '3 · Zaplavení', '4 · Vzdálenost']   // index = číslo sady
@@ -20,6 +23,8 @@ const HIGHLIGHT = '#26408C'   // modrá: období a řeka
 const BASE = '#7894E8'
 const RED_HI = '#B03030'      // světle červená: sady a úlohy
 const RED = '#E88080'
+
+let removeZoom: (() => void) | null = null
 
 ecs.registerComponent({
   name: 'test-mode',
@@ -42,6 +47,46 @@ ecs.registerComponent({
     if (s.zacScale > 0) {
       [...models.zac.periods, models.zac.river].forEach((e) => { try { if (e) world.setScale(e, s.zacScale, s.zacScale, s.zacScale) } catch (err) { console.error(err) } })
     }
+    // ---------- velikost modelu: pinch dvěma prsty ----------
+    // Měřítko se násobí společným koeficientem; základní měřítka entit se vezmou ze scény (po případné kalibraci zácviku).
+    const baseScale = new Map<ecs.Eid, {x: number, y: number, z: number}>()
+    const zoomEnts = [
+      ...models.fry.periods, ...models.zvi.periods, ...models.zac.periods,
+      models.fry.river, models.zvi.river, models.zac.river, s.fryLegend, s.zviLegend,
+    ].filter(Boolean)
+    zoomEnts.forEach((e) => {
+      try { const sc = ecs.Scale.get(world, e); baseScale.set(e, {x: sc.x, y: sc.y, z: sc.z}) } catch (err) { console.error(err) }
+    })
+    let zoom = 1
+    const ZOOM_MIN = 0.25
+    const ZOOM_MAX = 6
+    const applyZoom = () => baseScale.forEach((b, e) => { try { world.setScale(e, b.x * zoom, b.y * zoom, b.z * zoom) } catch (err) { console.error(err) } })
+    let pinchD0 = 0
+    let pinchZ0 = 1
+    const pinchDist = (ev: TouchEvent) => Math.hypot(ev.touches[0].clientX - ev.touches[1].clientX, ev.touches[0].clientY - ev.touches[1].clientY)
+    const onTouchStart = (ev: TouchEvent) => { if (ev.touches.length === 2) { pinchD0 = pinchDist(ev); pinchZ0 = zoom } }
+    const onTouchMove = (ev: TouchEvent) => {
+      if (ev.touches.length !== 2 || pinchD0 <= 0) return
+      ev.preventDefault()
+      zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, pinchZ0 * pinchDist(ev) / pinchD0))
+      applyZoom()
+    }
+    const onTouchEnd = (ev: TouchEvent) => { if (ev.touches.length < 2) pinchD0 = 0 }
+    const onWheel = (ev: WheelEvent) => {   // jen pro zkoušení na počítači
+      zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, zoom * Math.exp(-ev.deltaY * 0.001)))
+      applyZoom()
+    }
+    document.addEventListener('touchstart', onTouchStart, {passive: true})
+    document.addEventListener('touchmove', onTouchMove, {passive: false})
+    document.addEventListener('touchend', onTouchEnd, {passive: true})
+    document.addEventListener('touchcancel', onTouchEnd, {passive: true})
+    document.addEventListener('wheel', onWheel, {passive: true})
+    removeZoom = () => {
+      document.removeEventListener('touchstart', onTouchStart); document.removeEventListener('touchmove', onTouchMove)
+      document.removeEventListener('touchend', onTouchEnd); document.removeEventListener('touchcancel', onTouchEnd)
+      document.removeEventListener('wheel', onWheel)
+    }
+
     let task: TestTask = TEST_TASKS[0]
     let period = 1          // jen pro sadu 1 (přepínání období); začíná obdobím z tištěné mapy (task.start)
     let marker: ecs.Eid | null = null   // jen zácvik: entita se značkami
@@ -55,8 +100,16 @@ ecs.registerComponent({
     // ---------- modely Zvíkova a Frymburku: nahrávají se až podle úlohy ----------
     // Modely terénu ze scény se při startu odeberou (nic se nestahuje); do entit se nahrávají modely úloh.
     const loadedUrl = new Map<ecs.Eid, string>()
+    const overlayOf = new Map<ecs.Eid, ecs.Eid>()   // entita období -> potomek s vrstvou úlohy
+    const dropOverlay = (e: ecs.Eid) => {
+      const o = overlayOf.get(e)
+      if (!o) return
+      try { world.deleteEntity(o) } catch (err) { console.error(err) }
+      loadedUrl.delete(o); overlayOf.delete(e)
+    }
     const clearModel = (e: ecs.Eid) => {
       if (!e) return
+      dropOverlay(e)
       try { if (ecs.GltfModel.has(world, e)) ecs.GltfModel.remove(world, e) } catch (err) { console.error(err) }
       loadedUrl.delete(e)
     }
@@ -64,6 +117,19 @@ ecs.registerComponent({
       if (!e || loadedUrl.get(e) === url) return
       try { if (ecs.GltfModel.has(world, e)) ecs.GltfModel.remove(world, e) } catch (err) { console.error(err) }
       try { ecs.GltfModel.set(world, e, {url, loop: true}); loadedUrl.set(e, url) } catch (err) { console.error(err) }
+    }
+    const overlayUrl = (e: ecs.Eid) => { const o = overlayOf.get(e); return o ? loadedUrl.get(o) : undefined }
+    const setOverlay = (e: ecs.Eid, url: string) => {
+      let o = overlayOf.get(e)
+      if (!o) {
+        o = world.createEntity()
+        world.setParent(o, e)
+        world.setPosition(o, 0, 0, 0)
+        world.setQuaternion(o, 0, 0, 0, 1)
+        world.setScale(o, 1, 1, 1)
+        overlayOf.set(e, o)
+      }
+      setModel(o, url); show(o)
     }
     ;(['fry', 'zvi'] as const).forEach((t) => {
       models[t].periods.forEach(clearModel)
@@ -209,32 +275,34 @@ ecs.registerComponent({
         marker = e
       }
     }
-    // Zvíkov a Frymburk: samostatný model úlohy v entitě období
+    // Zvíkov a Frymburk: sdílený podklad v entitě období + vrstva úlohy jako její potomek
     const applyOwn = async (my: number) => {
       if (!scanned) return
       const t = task.terr as 'fry' | 'zvi'
       const ents = models[t].periods
       const idx = periodIndex()
-      const want = PERIODS.map((p, i) => ({i, url: task.files[p]})).filter(x => !!x.url)
+      const want = PERIODS.map((p, i) => ({i, base: baseUrl(t, p), ov: task.files[p]})).filter(x => !!x.ov)
       // entity období, která úloha nepotřebuje, uvolnit
       ents.forEach((e, i) => { if (!want.some(x => x.i === i)) { clearModel(e); hide(e) } })
       const cur = want.find(x => x.i === idx)
       if (!cur) return
-      // 1) zobrazené období: stáhnout, nahrát, zobrazit
-      if (loadedUrl.get(ents[idx]) !== cur.url) {
-        loaderUrls = [cur.url]; renderLoader()
-        try { await prefetch(cur.url) } catch (err) { console.error(err); loader.textContent = 'Model se nepodařilo načíst. Zkontrolujte připojení a zvolte úlohu znovu.'; return }
+      const ready = (x: {i: number, base: string, ov: string}) => loadedUrl.get(ents[x.i]) === x.base && overlayUrl(ents[x.i]) === x.ov
+      // 1) zobrazené období: stáhnout, nahrát, zobrazit (nezměněný podklad se nenačítá znovu)
+      if (!ready(cur)) {
+        const o = overlayOf.get(ents[idx]); if (o) hide(o)   // vrstva předchozí úlohy by byla zavádějící
+        loaderUrls = [cur.base, cur.ov].filter(u => loadedUrl.get(ents[idx]) !== u); renderLoader()
+        try { await Promise.all([prefetch(cur.base), prefetch(cur.ov)]) } catch (err) { console.error(err); loader.style.display = 'block'; loader.textContent = 'Model se nepodařilo načíst. Zkontrolujte připojení a zvolte úlohu znovu.'; return }
         if (my !== applyToken) return
         loaderUrls = []; renderLoader()
-        setModel(ents[idx], cur.url)
+        setModel(ents[idx], cur.base); setOverlay(ents[idx], cur.ov)
       }
       ents.forEach((e, i) => { if (i === idx) show(e); else hide(e) })
       // 2) ostatní období téže úlohy (sada 1) se dotahují na pozadí, aby přepnutí bylo okamžité
       for (const x of want) {
-        if (x.i === idx || loadedUrl.get(ents[x.i]) === x.url) continue
-        try { await prefetch(x.url) } catch (err) { console.error(err); continue }
+        if (x.i === idx || ready(x)) continue
+        try { await Promise.all([prefetch(x.base), prefetch(x.ov)]) } catch (err) { console.error(err); continue }
         if (my !== applyToken) return
-        setModel(ents[x.i], x.url)
+        setModel(ents[x.i], x.base); setOverlay(ents[x.i], x.ov)
         hide(ents[x.i])
       }
     }
@@ -270,6 +338,7 @@ ecs.registerComponent({
     setTimeout(apply, 1500)
   },
   remove: () => {
+    if (removeZoom) { removeZoom(); removeZoom = null }
     document.querySelectorAll('body > div[data-period-switcher]').forEach(el => el.remove())
   },
 })

@@ -1,8 +1,12 @@
 // Seznam testovacích úloh a jejich modelů (GLB).
-// own = true: model je samostatný (terén s texturou, budovy, stromy, legenda, body A–D / A–B a vrstevnice jsou součástí GLB).
+// own = true (Zvíkov, Frymburk): model se skládá z podkladu a vrstvy úlohy.
+//   Podklad (terén s texturou, budovy, legenda s měřítkem) je pro území a období stejný: baseUrl(), soubory *_base_{CO,SMO5,RUIAN}.glb.
+//   Vrstva úlohy (files): stromy, body A–D / A–B, vrstevnice a jejich popisky. Podklad se při změně úlohy nenačítá znovu.
 // own = false (zácvik): model obsahuje jen značky, terén se bere ze scény.
 // Sady: 1 Změny (jeden model pro tři období), 2 Výška, 3 Zaplavení, 4 Vzdálenost (body A a B).
 export type TestTask = {id: string, set: number, terr: 'zvi' | 'fry' | 'zac', period: 'CO' | 'SMO5' | 'RUIAN' | 'ALL', own: boolean, files: Record<string, string>, start?: 'CO' | 'SMO5' | 'RUIAN'}   // start: období zobrazené jako první (sada 1) = pokryv v tištěné mapě atlasu (cíl pro sledování)
+export const baseUrl = (terr: 'zvi' | 'fry', period: string) =>
+  `assets/test/${terr === 'zvi' ? 'Zvikov' : 'Frymburk'}_base_${period}.glb`
 export const TEST_TASKS: TestTask[] = [
   {"id": "1-Z", "set": 1, "terr": "zvi", "period": "ALL", "own": true, "start": "SMO5", "files": {"CO": "assets/test/Zvikov_sada1_CO.glb", "SMO5": "assets/test/Zvikov_sada1_SMO5.glb", "RUIAN": "assets/test/Zvikov_sada1_RUIAN.glb"}},
   {"id": "2-Z1", "set": 2, "terr": "zvi", "period": "SMO5", "own": true, "files": {"SMO5": "assets/test/Zvikov_sada2_otazka1.glb"}},

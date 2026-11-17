@@ -36,6 +36,7 @@ Aplikace běží přímo v prohlížeči, neinstaluje se a nepotřebuje účet.
 | `src/tlacitka.ts` | přepínání období a hladiny vodní nádrže, tlačítka s českou diakritikou |
 | `src/scan-prompt.ts` | úvodní výzva k naskenování stránky atlasu |
 | `src/fonts.ts`, `src/assets/fonts/` | písmo Merriweather Sans (OFL) |
+| `tools/split_glb.py` | rozdělení kompletních modelů na podklad a vrstvu úlohy |
 | `src/assets/modely/` | 3D modely krajiny (GLB) |
 | `image-targets/` | data pro rozpoznání stránek atlasu (Zvíkov, Frymburk) |
 | `docs/` | mapy ke zkušebnímu skenování a QR kód aplikace |
@@ -52,7 +53,14 @@ Komponenta `test-mode` (`src/test-mode.ts`) je na kameře místo `period-switche
 | 3 Zaplavení | body A–D, vrstevnice, 2 úlohy | `*_sada3_otazka{1,2}.glb` |
 | 4 Vzdálenost | body A a B, 3 úlohy | `*_sada4_otazka*.glb` |
 
-Každý model úlohy je samostatný GLB v `src/assets/test/` (terén s texturou, budovy, stromy, legenda s měřítkem, značky a vrstevnice). Seznam úloh je v `src/test-tasks.ts`. Označení listů odpovídá záznamníku (např. `2-Z1` = sada 2, Zvíkov, úloha 1).
+Model každé úlohy se skládá ze dvou GLB v `src/assets/test/`:
+
+- **podklad** `{Zvikov,Frymburk}_base_{CO,SMO5,RUIAN}.glb`: terén s texturou, budovy, legenda s měřítkem. Je stejný pro všechny úlohy nad daným územím a obdobím, takže se při změně úlohy nebo sady nenačítá znovu (sady 2 a 3 sdílejí podklad SMO5, sada 4 podklad CO);
+- **vrstva úlohy** (`*_sada*_otazka*.glb`, u sady 1 `*_sada1_{CO,SMO5,RUIAN}.glb`): stromy (vyčištěné kolem značek), body A–D nebo A–B, vrstevnice a jejich popisky.
+
+Kompletní (nerozdělené) modely jsou v repozitáři Vltava-testovani-podklady. Rozdělení zajišťuje `tools/split_glb.py`. Seznam úloh je v `src/test-tasks.ts`. Označení listů odpovídá záznamníku (např. `2-Z1` = sada 2, Zvíkov, úloha 1).
+
+**Velikost modelu** se mění stažením nebo roztažením dvěma prsty (pinch). Nastavená velikost se při změně sady, úlohy nebo období zachová.
 
 ## Vývoj
 
