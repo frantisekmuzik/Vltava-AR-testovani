@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Hladina přehrady podle terénu (Lipno u Frymburku, Orlík u Zvíkova).
 
-Hladina je jedna plochá plocha ve skutečné výšce hladiny (Lipno 725,60 m n. m., Orlík 353,00 m n. m.).
+Hladina je jedna plochá plocha (Orlík 353,00 m n. m.; Frymburk v historickém terénu 721,00 m, v terénu RUIAN skutečných 725,60 m, protože dno přehrady je tam už na 724,2 m).
 Zaplavená oblast se bere z terénu samotného: souvislá oblast pod touto výškou, navazující na přehradu.
 Dva soubory: historický terén (CO a SMO5, společná hladina) a současný terén (RUIAN, přípona _RUIAN). Okraj hladiny tak vždy leží na vrstevnici hladiny a nikdy nezasahuje do svahu.
 Okraj je o jednu buňku (2 m) zasunutý pod terén, aby mezi hladinou a terénem nebyla mezera.
@@ -21,8 +21,8 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 A = os.path.join(ROOT, 'src', 'assets')
 CELL = 2.0
 CFG = {
-    'Frymburk': {'level': 725.60, 'offset': 690.0, 'terr': {'CO': 'DMR_CO', 'SMO5': 'DMR_SMO5', 'RUIAN': 'DMR_RUIAN'}},
-    'Zvikov': {'level': 353.00, 'offset': 0.0, 'terr': {'CO': 'DMR_1953_1', 'SMO5': 'DMR_1953_1', 'RUIAN': 'dmr5g_1'}},
+    'Frymburk': {'level': {'': 721.00, '_RUIAN': 725.60}, 'offset': 690.0, 'terr': {'CO': 'DMR_CO', 'SMO5': 'DMR_SMO5', 'RUIAN': 'DMR_RUIAN'}},
+    'Zvikov': {'level': {'': 353.00, '_RUIAN': 353.00}, 'offset': 0.0, 'terr': {'CO': 'DMR_1953_1', 'SMO5': 'DMR_1953_1', 'RUIAN': 'dmr5g_1'}},
 }
 CT = {5123: '<u2', 5125: '<u4', 5126: '<f4'}
 NC = {'SCALAR': 1, 'VEC2': 2, 'VEC3': 3}
@@ -49,27 +49,30 @@ def terrain(path, node):
 GROUPS = {'': ['CO', 'SMO5'], '_RUIAN': ['RUIAN']}
 
 def build(name, suffix):
-    c = CFG[name]; L = c['level'] - c['offset']
+    c = CFG[name]; L = c['level'][suffix] - c['offset']; LR = c['level']['_RUIAN'] - c['offset']
     P = {k: terrain(os.path.join(A, 'test', f'{name}_base_{k}.glb'), n) for k, n in c['terr'].items()}
     allp = np.vstack(list(P.values()))
     xs = np.arange(np.floor(allp[:, 0].min()) - 2, allp[:, 0].max() + 2, CELL)
     zs = np.arange(np.floor(allp[:, 2].min()) - 2, allp[:, 2].max() + 2, CELL)
     X, Z = np.meshgrid(xs, zs)
     H = {k: LinearNDInterpolator(p[:, [0, 2]], p[:, 1])(X, Z) for k, p in P.items()}
-    low = {k: np.nan_to_num(h, nan=1e9) < L for k, h in H.items()}
+    low = {k: np.nan_to_num(h, nan=1e9) < (L if k in GROUPS[suffix] else LR) for k, h in H.items()}
+    lowR = np.nan_to_num(H['RUIAN'], nan=1e9) < LR
     # přehrada = velké souvislé oblasti pod hladinou v současném terénu (RUIAN), pak se hledají v ostatních variantách
-    lab, n = ndi.label(low['RUIAN']); sz = ndi.sum(low['RUIAN'], lab, range(1, n + 1))
+    lab, n = ndi.label(lowR); sz = ndi.sum(lowR, lab, range(1, n + 1))
     seed = np.isin(lab, [i + 1 for i, s in enumerate(sz) if s * CELL ** 2 > 100000])
     flood = {}
-    for k in P:
+    for k in GROUPS[suffix]:
         lab, n = ndi.label(low[k]); ov = np.unique(lab[seed & low[k]]); ov = ov[ov > 0]
-        keep = [i for i in ov if (seed & (lab == i)).sum() * CELL ** 2 > 2000 or k == 'RUIAN']
+        if not len(ov):   # hladina pod dnem přehrady v daném terénu: hledat souvislou oblast navazující na přehradu v okolí
+            near = ndi.binary_dilation(seed, iterations=int(60 / CELL)); ov = np.unique(lab[near & low[k]]); ov = ov[ov > 0]
+        keep = [i for i in ov if (near_ok := True) and (lab == i).sum() * CELL ** 2 > 2000]
         flood[k] = np.isin(lab, keep)
     U = np.zeros_like(seed)
     for k in GROUPS[suffix]: U |= flood[k]
     U2 = ndi.binary_dilation(U, iterations=1)
     ha = lambda m: round(m.sum() * CELL ** 2 / 1e4, 1)
-    print(f'{name}{suffix}: hladina y={L:.2f}, plocha {ha(U2)} ha; zaplaveno CO {ha(flood["CO"])}, SMO5 {ha(flood["SMO5"])}, RUIAN {ha(flood["RUIAN"])} ha')
+    print(f'{name}{suffix}: hladina {L + c["offset"]:.2f} m n. m. (y={L:.2f}), plocha {ha(U2)} ha; zaplaveno ' + ', '.join(f'{k} {ha(flood[k])}' for k in GROUPS[suffix]) + ' ha')
     for k in GROUPS[suffix]:   # kontrola: viditelná hladina nad terénem, který není zaplavený (plave ve vzduchu)
         hover = U2 & low[k] & ~flood[k]
         print(f'  {k}: plocha hladiny nad nezaplaveným nižším terénem {ha(hover)} ha')

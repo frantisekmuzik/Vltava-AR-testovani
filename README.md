@@ -66,7 +66,7 @@ Stromy ve sdíleném podkladu jsou jen ty, které jsou ve všech úlohách skupi
 
 Kompletní (nerozdělené) modely jsou v repozitáři Vltava-testovani-podklady. Rozdělení zajišťuje `tools/split_glb.py`. Seznam úloh je v `src/test-tasks.ts`. Označení listů odpovídá záznamníku (např. `2-Z1` = sada 2, Zvíkov, úloha 1).
 
-**Hladina přehrady** (tlačítko Řeka) je jedna plochá plocha ve skutečné výšce hladiny (Lipno 725,60 m n. m., Orlík 353,00 m n. m.) a je ořezaná terénem. Okraj hladiny proto vždy leží na vrstevnici hladiny a nezasahuje do svahů. Zaplavená oblast se počítá z terénu (`tools/build_water.py`), zvlášť pro historický terén (CO, SMO5) a pro současný (soubory `*_Vltava_soucasny_tok_RUIAN.glb`, aplikace je přepíná podle období).
+**Hladina přehrady** (tlačítko Řeka) je jedna plochá plocha ořezaná terénem. Výška: Orlík 353,00 m n. m.; Frymburk 721,00 m v historickém terénu (CO, SMO5) a 725,60 m (Lipno) v terénu RUIAN, kde je dno přehrady už na 724,2 m. Okraj hladiny proto vždy leží na vrstevnici hladiny a nezasahuje do svahů. Zaplavená oblast se počítá z terénu (`tools/build_water.py`), zvlášť pro historický terén (CO, SMO5) a pro současný (soubory `*_Vltava_soucasny_tok_RUIAN.glb`, aplikace je přepíná podle období).
 
 **Velikost modelu** se mění stažením nebo roztažením dvěma prsty (pinch). Nastavená velikost se při změně sady, úlohy nebo období zachová.
 
