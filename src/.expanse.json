@@ -330,7 +330,7 @@
       "position": [
         -4.625730668392834e-06,
         0,
-        -0.061449466853182866
+        -3.430323033447678
       ],
       "rotation": [
         0.7071067811865475,
@@ -348,7 +348,7 @@
       "gltfModel": {
         "src": {
           "type": "asset",
-          "asset": "assets/modely/Zvikov_Vltava_soucasny_tok.gltf"
+          "asset": "assets/modely/Zvikov_Vltava_soucasny_tok.glb"
         },
         "animationClip": "",
         "loop": true
@@ -512,7 +512,7 @@
       "position": [
         -4.625730668392834e-06,
         0,
-        147.71243929481355
+        147.73762827415797
       ],
       "rotation": [
         0.7071067811865475,

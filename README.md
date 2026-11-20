@@ -36,6 +36,7 @@ Aplikace běží přímo v prohlížeči, neinstaluje se a nepotřebuje účet.
 | `src/tlacitka.ts` | přepínání období a hladiny vodní nádrže, tlačítka s českou diakritikou |
 | `src/scan-prompt.ts` | úvodní výzva k naskenování stránky atlasu |
 | `src/fonts.ts`, `src/assets/fonts/` | písmo Merriweather Sans (OFL) |
+| `tools/build_water.py` | výpočet hladiny přehrady z terénu |
 | `tools/split_glb.py` | rozdělení kompletních modelů na podklad a vrstvu úlohy |
 | `src/assets/modely/` | 3D modely krajiny (GLB) |
 | `image-targets/` | data pro rozpoznání stránek atlasu (Zvíkov, Frymburk) |
@@ -64,6 +65,8 @@ Model každé úlohy se skládá ze dvou GLB v `src/assets/test/`:
 Stromy ve sdíleném podkladu jsou jen ty, které jsou ve všech úlohách skupiny (průnik), takže žádný strom nezakrývá body žádné z úloh. Kolem bodů ostatních úloh tak mohou být drobné proluky bez stromů.
 
 Kompletní (nerozdělené) modely jsou v repozitáři Vltava-testovani-podklady. Rozdělení zajišťuje `tools/split_glb.py`. Seznam úloh je v `src/test-tasks.ts`. Označení listů odpovídá záznamníku (např. `2-Z1` = sada 2, Zvíkov, úloha 1).
+
+**Hladina přehrady** (tlačítko Řeka) je jedna plochá plocha ve skutečné výšce hladiny (Lipno 725,60 m n. m., Orlík 353,00 m n. m.) a je ořezaná terénem. Okraj hladiny proto vždy leží na vrstevnici hladiny a nezasahuje do svahů. Zaplavená oblast se počítá z terénu (`tools/build_water.py`), zvlášť pro historický terén (CO, SMO5) a pro současný (soubory `*_Vltava_soucasny_tok_RUIAN.glb`, aplikace je přepíná podle období).
 
 **Velikost modelu** se mění stažením nebo roztažením dvěma prsty (pinch). Nastavená velikost se při změně sady, úlohy nebo období zachová.
 

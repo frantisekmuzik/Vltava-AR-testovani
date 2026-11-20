@@ -253,9 +253,17 @@ ecs.registerComponent({
     }
 
     // ---------- zobrazení úlohy ----------
+    // hladina přehrady je plochá ve skutečné výšce hladiny a ořezaná terénem; pro současný terén (RUIAN) je zvláštní soubor
+    const RIVER_URL = {
+      fry: ['assets/modely/Frymburk_Vltava_soucasny_tok.glb', 'assets/modely/Frymburk_Vltava_soucasny_tok_RUIAN.glb'],
+      zvi: ['assets/modely/Zvikov_Vltava_soucasny_tok.glb', 'assets/modely/Zvikov_Vltava_soucasny_tok_RUIAN.glb'],
+    }
     const showRiver = () => {
       (['fry', 'zvi', 'zac'] as const).forEach((t) => {
-        if (t === task.terr && riverOn) show(models[t].river); else hide(models[t].river)
+        if (t === task.terr && riverOn) {
+          if (t !== 'zac') setModel(models[t].river, RIVER_URL[t][periodIndex() === 2 ? 1 : 0])
+          show(models[t].river)
+        } else hide(models[t].river)
       })
     }
     // zácvik: terén ze scény + GLB se značkami jako potomek modelu období

@@ -8,3 +8,4 @@ external/** filter=lfs diff=lfs merge=lfs -text
 src/assets/test/Frymburk_*.glb -filter -diff -merge binary
 src/assets/test/Zvikov_*.glb -filter -diff -merge binary
 docs/qr_aplikace.png -filter -diff -merge binary
+src/assets/modely/*_Vltava_soucasny_tok*.glb -filter -diff -merge binary
