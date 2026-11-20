@@ -68,6 +68,8 @@ Kompletní (nerozdělené) modely jsou v repozitáři Vltava-testovani-podklady.
 
 **Hladina přehrady** (tlačítko Řeka) je jedna plochá plocha ořezaná terénem. Výška: Orlík 353,00 m n. m.; Frymburk 721,00 m v historickém terénu (CO, SMO5) a 725,60 m (Lipno) v terénu RUIAN, kde je dno přehrady už na 724,2 m. Okraj hladiny proto vždy leží na vrstevnici hladiny a nezasahuje do svahů. Zaplavená oblast se počítá z terénu (`tools/build_water.py`), zvlášť pro historický terén (CO, SMO5) a pro současný (soubory `*_Vltava_soucasny_tok_RUIAN.glb`, aplikace je přepíná podle období).
 
+**Terén Zvíkova** (CO, SMO5) je mimo hladinu z DMR 5G, pod hladinou 353 m ze starého terénu (DMR z 50. let), na hladině se oba napojují. Vrstevnice sad 2 a 3 jsou shodné s tištěnými mapami; hladina 353 m odpovídá modrému pásu „současné vodstvo“ v tisku.
+
 **Velikost modelu** se mění stažením nebo roztažením dvěma prsty (pinch). Nastavená velikost se při změně sady, úlohy nebo období zachová.
 
 ## Vývoj
