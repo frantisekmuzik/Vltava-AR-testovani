@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Hladina přehrady podle terénu (Lipno u Frymburku, Orlík u Zvíkova).
 
-Hladina je jedna plochá plocha (Orlík 353,00 m n. m.; Frymburk v historickém terénu 721,00 m, v terénu RUIAN skutečných 725,60 m, protože dno přehrady je tam už na 724,2 m).
+Hladina je jedna plochá plocha (Orlík 353,00 m n. m.; Lipno u Frymburku 725,60 m n. m.; dno přehrady je v terénu RUIAN už na 724,2 m).
 Zaplavená oblast se bere z terénu samotného: souvislá oblast pod touto výškou, navazující na přehradu.
 Dva soubory: historický terén (CO a SMO5, společná hladina) a současný terén (RUIAN, přípona _RUIAN). Okraj hladiny tak vždy leží na vrstevnici hladiny a nikdy nezasahuje do svahu.
 Okraj je o jednu buňku (2 m) zasunutý pod terén, aby mezi hladinou a terénem nebyla mezera.
@@ -21,7 +21,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 A = os.path.join(ROOT, 'src', 'assets')
 CELL = 2.0
 CFG = {
-    'Frymburk': {'level': {'': 721.00, '_RUIAN': 725.60}, 'offset': 690.0, 'terr': {'CO': 'DMR_CO', 'SMO5': 'DMR_SMO5', 'RUIAN': 'DMR_RUIAN'}},
+    'Frymburk': {'level': {'': 725.60, '_RUIAN': 725.60}, 'offset': 690.0, 'terr': {'CO': 'DMR_CO', 'SMO5': 'DMR_SMO5', 'RUIAN': 'DMR_RUIAN'}},
     'Zvikov': {'level': {'': 353.00, '_RUIAN': 353.00}, 'offset': 0.0, 'terr': {'CO': 'DMR_1953_1', 'SMO5': 'DMR_1953_1', 'RUIAN': 'dmr5g_1'}},
 }
 CT = {5123: '<u2', 5125: '<u4', 5126: '<f4'}
