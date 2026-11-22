@@ -12,13 +12,12 @@ import {TEST_TASKS, TestTask, baseUrl} from './test-tasks'
 //   nad stejným podkladem se mění jen vrstva. Popisky sídel jsou potomky entity a zůstávají.
 //   Legenda ve scéně se skryje, je součástí podkladu.
 // Velikost modelu: stažení/roztažení dvěma prsty (pinch), hodnota se při změně sady a úlohy zachová.
-// Zácvik: model obsahuje jen značky, terén se bere ze scény (původní postup).
 
 const SETS = ['', '1 · Změny', '2 · Výška', '3 · Zaplavení', '4 · Vzdálenost']   // index = číslo sady
 const PERIOD_LABELS = ['19. století', '20. století', '21. století']
 const PERIODS = ['CO', 'SMO5', 'RUIAN']
-const TERR_NAME: Record<string, string> = {zvi: 'Zvíkov', fry: 'Frymburk', zac: 'Zácvik'}
-const TERR_CODE: Record<string, string> = {zvi: 'Z', fry: 'F', zac: 'Zácvik'}
+const TERR_NAME: Record<string, string> = {zvi: 'Zvíkov', fry: 'Frymburk'}
+const TERR_CODE: Record<string, string> = {zvi: 'Z', fry: 'F'}
 const HIGHLIGHT = '#26408C'   // modrá: období a řeka
 const BASE = '#7894E8'
 const RED_HI = '#B03030'      // světle červená: sady a úlohy
@@ -31,28 +30,21 @@ ecs.registerComponent({
   schema: {
     fryModel1: ecs.eid, fryModel2: ecs.eid, fryModel3: ecs.eid, fryRiver: ecs.eid, fryLegend: ecs.eid,
     zviModel1: ecs.eid, zviModel2: ecs.eid, zviModel3: ecs.eid, zviRiver: ecs.eid, zviLegend: ecs.eid,
-    zacModel1: ecs.eid, zacModel2: ecs.eid, zacModel3: ecs.eid, zacRiver: ecs.eid,
-    zviTarget: ecs.eid, fryTarget: ecs.eid, zacTarget: ecs.eid,
-    zacScale: ecs.f32,    // 0 = ponechat měřítko ze scény; jinak se nastaví měřítko modelů zácviku (kalibrace)
+    zviTarget: ecs.eid, fryTarget: ecs.eid,
   },
-  schemaDefaults: {zacScale: 0},
   add: (world, component) => {
     const s = component.schema
     ensureFont()
     const models = {
       fry: {periods: [s.fryModel1, s.fryModel2, s.fryModel3], river: s.fryRiver},
       zvi: {periods: [s.zviModel1, s.zviModel2, s.zviModel3], river: s.zviRiver},
-      zac: {periods: [s.zacModel1, s.zacModel2, s.zacModel3], river: s.zacRiver},
-    }
-    if (s.zacScale > 0) {
-      [...models.zac.periods, models.zac.river].forEach((e) => { try { if (e) world.setScale(e, s.zacScale, s.zacScale, s.zacScale) } catch (err) { console.error(err) } })
     }
     // ---------- velikost modelu: pinch dvěma prsty ----------
-    // Měřítko se násobí společným koeficientem; základní měřítka entit se vezmou ze scény (po případné kalibraci zácviku).
+    // Měřítko se násobí společným koeficientem; základní měřítka entit se vezmou ze scény.
     const baseScale = new Map<ecs.Eid, {x: number, y: number, z: number}>()
     const zoomEnts = [
-      ...models.fry.periods, ...models.zvi.periods, ...models.zac.periods,
-      models.fry.river, models.zvi.river, models.zac.river, s.fryLegend, s.zviLegend,
+      ...models.fry.periods, ...models.zvi.periods,
+      models.fry.river, models.zvi.river, s.fryLegend, s.zviLegend,
     ].filter(Boolean)
     zoomEnts.forEach((e) => {
       try { const sc = ecs.Scale.get(world, e); baseScale.set(e, {x: sc.x, y: sc.y, z: sc.z}) } catch (err) { console.error(err) }
@@ -89,7 +81,6 @@ ecs.registerComponent({
 
     let task: TestTask = TEST_TASKS[0]
     let period = 1          // jen pro sadu 1 (přepínání období); začíná obdobím z tištěné mapy (task.start)
-    let marker: ecs.Eid | null = null   // jen zácvik: entita se značkami
     let riverOn = false     // řeka je u každé úlohy na začátku vypnutá, tlačítkem ji lze kdykoli zapnout
     let applyToken = 0      // nejnovější volání apply() vyhrává (rychlé přepínání úloh)
     let scanned = false     // modely úloh se stahují až po nalezení mapy (podle ní se pozná území)
@@ -222,7 +213,6 @@ ecs.registerComponent({
     const taskForBtn = (i: number): TestTask | undefined => tasksHere()[i]
     // zobrazené označení listu: sada-území+číslo (Z = Zvíkov, F = Frymburk), shodně se záznamníkem, např. 2-Z1
     const shownId = (t: TestTask) => {
-      if (t.terr === 'zac') return `Zácvik ${t.set}`
       const k = t.id.replace(/^\d+-[ZF]/, '')
       return t.set === 1 ? `1-${TERR_CODE[t.terr]}1 až 1-${TERR_CODE[t.terr]}3` : `${t.set}-${TERR_CODE[t.terr]}${k}`
     }
@@ -246,8 +236,7 @@ ecs.registerComponent({
         b.style.display = t && here.length > 1 ? 'flex' : 'none'
       })
       info.textContent = `${shownId(task)} · ${TERR_NAME[task.terr]}`
-      riverBtn.textContent = task.terr === 'zac' ? 'Nádrž' : 'Řeka'
-      riverBtn.style.background = riverOn ? HIGHLIGHT : BASE
+            riverBtn.style.background = riverOn ? HIGHLIGHT : BASE
       bottom.style.display = isPeriodTask() ? 'flex' : 'none'
       perBtns.forEach((b, i) => { b.style.background = i === period ? HIGHLIGHT : BASE })
     }
@@ -259,29 +248,12 @@ ecs.registerComponent({
       zvi: ['assets/modely/Zvikov_Vltava_soucasny_tok.glb', 'assets/modely/Zvikov_Vltava_soucasny_tok_RUIAN.glb'],
     }
     const showRiver = () => {
-      (['fry', 'zvi', 'zac'] as const).forEach((t) => {
+      (['fry', 'zvi'] as const).forEach((t) => {
         if (t === task.terr && riverOn) {
-          if (t !== 'zac') setModel(models[t].river, RIVER_URL[t][periodIndex() === 2 ? 1 : 0])
+          setModel(models[t].river, RIVER_URL[t][periodIndex() === 2 ? 1 : 0])
           show(models[t].river)
         } else hide(models[t].river)
       })
-    }
-    // zácvik: terén ze scény + GLB se značkami jako potomek modelu období
-    const applyTraining = () => {
-      models.zac.periods.forEach((e, i) => { if (i === periodIndex()) show(e); else hide(e) })
-      if (marker) { try { world.deleteEntity(marker) } catch (err) { console.error(err) } marker = null }
-      const parent = models.zac.periods[periodIndex()]
-      const url = task.files[PERIODS[periodIndex()]]
-      // diagnostika: přidej k adrese ?bez-znacky, značka se pak nevytvoří
-      if (parent && url && !/bez-znacky/.test(window.location.search)) {
-        const e = world.createEntity()
-        world.setParent(e, parent)
-        world.setPosition(e, 0, 0, 0)
-        world.setQuaternion(e, 0, 0, 0, 1)
-        world.setScale(e, 1, 1, 1)
-        ecs.GltfModel.set(world, e, {url, loop: true})
-        marker = e
-      }
     }
     // Zvíkov a Frymburk: sdílený podklad v entitě období + vrstva úlohy jako její potomek
     const applyOwn = async (my: number) => {
@@ -317,21 +289,18 @@ ecs.registerComponent({
     const apply = () => {
       const my = ++applyToken
       // ostatní území skrýt
-      ;(['fry', 'zvi', 'zac'] as const).forEach((t) => {
+      ;(['fry', 'zvi'] as const).forEach((t) => {
         if (t !== task.terr) models[t].periods.forEach(hide)
       })
       showRiver()
-      if (task.terr === 'zac') { loaderUrls = []; renderLoader(); applyTraining() } else {
-        if (marker) { try { world.deleteEntity(marker) } catch (err) { console.error(err) } marker = null }
-        applyOwn(my).catch(err => console.error(err))
-      }
+      applyOwn(my).catch(err => console.error(err))
       refreshUi()
     }
 
     // poslední naskenované území určuje, ke kterému území patří úlohy a tlačítka
     world.events.addListener(world.events.globalId, ecs.events.REALITY_IMAGE_FOUND, (event) => {
       const name = String((event.data as {name?: string} | undefined)?.name || '').toLowerCase()
-      const terr = name.includes('zacvik') ? 'zac' : name.includes('zvikov') ? 'zvi' : name.includes('frymburk') ? 'fry' : null
+      const terr = name.includes('zvikov') ? 'zvi' : name.includes('frymburk') ? 'fry' : null
       if (!terr) return
       scanned = true
       if (task.terr !== terr) {

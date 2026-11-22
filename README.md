@@ -45,7 +45,7 @@ Aplikace běží přímo v prohlížeči, neinstaluje se a nepotřebuje účet.
 
 ## Testovací režim (2. fáze uživatelského testu)
 
-Komponenta `test-mode` (`src/test-mode.ts`) je na kameře místo `period-switcher`. Je výhradně marker-based: úlohy se zobrazí po naskenování tištěné mapy (Zvíkov, Frymburk, případně zácvik).
+Komponenta `test-mode` (`src/test-mode.ts`) je na kameře místo `period-switcher`. Je výhradně marker-based: úlohy se zobrazí po naskenování tištěné mapy (Zvíkov a Frymburk).
 
 | Sada | Obsah | Modely |
 | --- | --- | --- |

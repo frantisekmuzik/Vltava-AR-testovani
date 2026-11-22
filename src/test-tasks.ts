@@ -3,9 +3,8 @@
 //   Podklad (base, jinak baseUrl() podle období): terén s texturou, budovy, legenda s měřítkem; u sad 2–4 i stromy a vrstevnice s popisky
 //   (*_base_sada23.glb, *_base_sada4.glb), u sady 1 *_base_{CO,SMO5,RUIAN}.glb.
 //   Vrstva úlohy (files): u sad 2–4 jen body A–D / A–B, u sady 1 i stromy. Podklad se při změně úlohy nenačítá znovu.
-// own = false (zácvik): model obsahuje jen značky, terén se bere ze scény.
 // Sady: 1 Změny (jeden model pro tři období), 2 Výška, 3 Zaplavení, 4 Vzdálenost (body A a B).
-export type TestTask = {id: string, set: number, terr: 'zvi' | 'fry' | 'zac', period: 'CO' | 'SMO5' | 'RUIAN' | 'ALL', own: boolean, files: Record<string, string>, start?: 'CO' | 'SMO5' | 'RUIAN', base?: string}   // start: období zobrazené jako první (sada 1) = pokryv v tištěné mapě atlasu (cíl pro sledování)
+export type TestTask = {id: string, set: number, terr: 'zvi' | 'fry', period: 'CO' | 'SMO5' | 'RUIAN' | 'ALL', own: boolean, files: Record<string, string>, start?: 'CO' | 'SMO5' | 'RUIAN', base?: string}   // start: období zobrazené jako první (sada 1) = pokryv v tištěné mapě atlasu (cíl pro sledování)
 export const baseUrl = (terr: 'zvi' | 'fry', period: string) =>
   `assets/test/${terr === 'zvi' ? 'Zvikov' : 'Frymburk'}_base_${period}.glb`
 export const TEST_TASKS: TestTask[] = [
@@ -24,9 +23,5 @@ export const TEST_TASKS: TestTask[] = [
   {"id": "3-F2", "set": 3, "terr": "fry", "period": "SMO5", "own": true, "base": "assets/test/Frymburk_base_sada23.glb", "files": {"SMO5": "assets/test/Frymburk_sada3_otazka2.glb"}},
   {"id": "4-F1", "set": 4, "terr": "fry", "period": "CO", "own": true, "base": "assets/test/Frymburk_base_sada4.glb", "files": {"CO": "assets/test/Frymburk_sada4_otazka1_500m.glb"}},
   {"id": "4-F2", "set": 4, "terr": "fry", "period": "CO", "own": true, "base": "assets/test/Frymburk_base_sada4.glb", "files": {"CO": "assets/test/Frymburk_sada4_otazka2_800m.glb"}},
-  {"id": "4-F3", "set": 4, "terr": "fry", "period": "CO", "own": true, "base": "assets/test/Frymburk_base_sada4.glb", "files": {"CO": "assets/test/Frymburk_sada4_otazka3_1110m.glb"}},
-  {"id": "0-1", "set": 1, "terr": "zac", "period": "ALL", "own": false, "files": {"CO": "assets/test/zac_0-1_CO.glb", "SMO5": "assets/test/zac_0-1_SMO5.glb", "RUIAN": "assets/test/zac_0-1_RUIAN.glb"}},
-  {"id": "0-2", "set": 2, "terr": "zac", "period": "SMO5", "own": false, "files": {"SMO5": "assets/test/zac_0-2.glb"}},
-  {"id": "0-2b", "set": 3, "terr": "zac", "period": "SMO5", "own": false, "files": {"SMO5": "assets/test/zac_0-2.glb"}},
-  {"id": "0-3", "set": 4, "terr": "zac", "period": "CO", "own": false, "files": {"CO": "assets/test/zac_0-3.glb"}}
+  {"id": "4-F3", "set": 4, "terr": "fry", "period": "CO", "own": true, "base": "assets/test/Frymburk_base_sada4.glb", "files": {"CO": "assets/test/Frymburk_sada4_otazka3_1110m.glb"}}
 ]
