@@ -59,7 +59,6 @@ Model každé úlohy se skládá ze dvou GLB v `src/assets/test/`:
 - **podklad**, který se při změně úlohy nenačítá znovu:
   - sada 1: `{Zvikov,Frymburk}_base_{CO,SMO5,RUIAN}.glb` (terén s texturou, budovy, legenda s měřítkem),
   - sady 2 a 3: `*_base_sada23.glb` (podklad SMO5 + stromy + vrstevnice s popisky, sdílený oběma sadami),
-    (výjimka: Zvíkov, sada 3, úloha 1 má vlastní podklad `Zvikov_base_sada3_otazka1.glb`, protože vrstevnice a popisky jsou vyhlazené a bod D je posunutý),
   - sada 4: `*_base_sada4.glb` (podklad CO + stromy);
 - **vrstva úlohy** (`*_sada*_otazka*.glb`): u sad 2–4 jen body A–D, resp. A–B (stovky kB); u sady 1 (`*_sada1_{CO,SMO5,RUIAN}.glb`) body a stromy příslušného období.
 

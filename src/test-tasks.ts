@@ -1,7 +1,7 @@
 // Seznam testovacích úloh a jejich modelů (GLB).
 // own = true (Zvíkov, Frymburk): model se skládá z podkladu a vrstvy úlohy.
 //   Podklad (base, jinak baseUrl() podle období): terén s texturou, budovy, legenda s měřítkem; u sad 2–4 i stromy a vrstevnice s popisky
-//   (*_base_sada23.glb, *_base_sada4.glb; Zvíkov 3-Z1 má vlastní podklad *_base_sada3_otazka1.glb), u sady 1 *_base_{CO,SMO5,RUIAN}.glb.
+//   (*_base_sada23.glb, *_base_sada4.glb), u sady 1 *_base_{CO,SMO5,RUIAN}.glb.
 //   Vrstva úlohy (files): u sad 2–4 jen body A–D / A–B, u sady 1 i stromy. Podklad se při změně úlohy nenačítá znovu.
 // own = false (zácvik): model obsahuje jen značky, terén se bere ze scény.
 // Sady: 1 Změny (jeden model pro tři období), 2 Výška, 3 Zaplavení, 4 Vzdálenost (body A a B).
@@ -12,7 +12,7 @@ export const TEST_TASKS: TestTask[] = [
   {"id": "1-Z", "set": 1, "terr": "zvi", "period": "ALL", "own": true, "start": "SMO5", "files": {"CO": "assets/test/Zvikov_sada1_CO.glb", "SMO5": "assets/test/Zvikov_sada1_SMO5.glb", "RUIAN": "assets/test/Zvikov_sada1_RUIAN.glb"}},
   {"id": "2-Z1", "set": 2, "terr": "zvi", "period": "SMO5", "own": true, "base": "assets/test/Zvikov_base_sada23.glb", "files": {"SMO5": "assets/test/Zvikov_sada2_otazka1.glb"}},
   {"id": "2-Z2", "set": 2, "terr": "zvi", "period": "SMO5", "own": true, "base": "assets/test/Zvikov_base_sada23.glb", "files": {"SMO5": "assets/test/Zvikov_sada2_otazka2.glb"}},
-  {"id": "3-Z1", "set": 3, "terr": "zvi", "period": "SMO5", "own": true, "base": "assets/test/Zvikov_base_sada3_otazka1.glb", "files": {"SMO5": "assets/test/Zvikov_sada3_otazka1.glb"}},
+  {"id": "3-Z1", "set": 3, "terr": "zvi", "period": "SMO5", "own": true, "base": "assets/test/Zvikov_base_sada23.glb", "files": {"SMO5": "assets/test/Zvikov_sada3_otazka1.glb"}},
   {"id": "3-Z2", "set": 3, "terr": "zvi", "period": "SMO5", "own": true, "base": "assets/test/Zvikov_base_sada23.glb", "files": {"SMO5": "assets/test/Zvikov_sada3_otazka2.glb"}},
   {"id": "4-Z1", "set": 4, "terr": "zvi", "period": "CO", "own": true, "base": "assets/test/Zvikov_base_sada4.glb", "files": {"CO": "assets/test/Zvikov_sada4_otazka1_250m.glb"}},
   {"id": "4-Z2", "set": 4, "terr": "zvi", "period": "CO", "own": true, "base": "assets/test/Zvikov_base_sada4.glb", "files": {"CO": "assets/test/Zvikov_sada4_otazka2_500m.glb"}},
