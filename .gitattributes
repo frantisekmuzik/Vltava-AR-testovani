@@ -9,3 +9,8 @@ src/assets/test/Frymburk_*.glb -filter -diff -merge binary
 src/assets/test/Zvikov_*.glb -filter -diff -merge binary
 docs/qr_aplikace.png -filter -diff -merge binary
 src/assets/modely/*_Vltava_soucasny_tok*.glb -filter -diff -merge binary
+
+# image targety = tištěné mapy sady 1: malé soubory potřebné za běhu jako běžné soubory v gitu (bez LFS)
+image-targets/*_luminance.png -filter -diff -merge binary
+image-targets/*_thumbnail.png -filter -diff -merge binary
+docs/mapa_*.jpg -filter -diff -merge binary

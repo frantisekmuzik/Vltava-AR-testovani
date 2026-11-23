@@ -39,8 +39,8 @@ Aplikace běží přímo v prohlížeči, neinstaluje se a nepotřebuje účet.
 | `tools/build_water.py` | výpočet hladiny přehrady z terénu |
 | `tools/split_glb.py` | rozdělení kompletních modelů na podklad a vrstvu úlohy |
 | `src/assets/modely/` | 3D modely krajiny (GLB) |
-| `image-targets/` | data pro rozpoznání stránek atlasu (Zvíkov, Frymburk) |
-| `docs/` | mapy ke zkušebnímu skenování a QR kód aplikace |
+| `image-targets/` | data pro rozpoznání map (image targety): tištěná mapa sady 1 – Frymburk 1. období (CO), Zvíkov 2. období (SMO5); rozpoznají se i listy sad 2–4 |
+| `docs/` | mapy sady 1 ke zkušebnímu skenování a QR kód aplikace |
 | `.github/workflows/deploy.yml` | automatický deploy na GitHub Pages |
 
 ## Testovací režim (2. fáze uživatelského testu)

@@ -4,7 +4,7 @@
 //   (*_base_sada23.glb, *_base_sada4.glb), u sady 1 *_base_{CO,SMO5,RUIAN}.glb.
 //   Vrstva úlohy (files): u sad 2–4 jen body A–D / A–B, u sady 1 i stromy. Podklad se při změně úlohy nenačítá znovu.
 // Sady: 1 Změny (jeden model pro tři období), 2 Výška, 3 Zaplavení, 4 Vzdálenost (body A a B).
-export type TestTask = {id: string, set: number, terr: 'zvi' | 'fry', period: 'CO' | 'SMO5' | 'RUIAN' | 'ALL', own: boolean, files: Record<string, string>, start?: 'CO' | 'SMO5' | 'RUIAN', base?: string}   // start: období zobrazené jako první (sada 1) = pokryv v tištěné mapě atlasu (cíl pro sledování)
+export type TestTask = {id: string, set: number, terr: 'zvi' | 'fry', period: 'CO' | 'SMO5' | 'RUIAN' | 'ALL', own: boolean, files: Record<string, string>, start?: 'CO' | 'SMO5' | 'RUIAN', base?: string}   // start: období zobrazené jako první (sada 1) = pokryv v tištěné mapě sady 1 (image target pro všechny sady)
 export const baseUrl = (terr: 'zvi' | 'fry', period: string) =>
   `assets/test/${terr === 'zvi' ? 'Zvikov' : 'Frymburk'}_base_${period}.glb`
 export const TEST_TASKS: TestTask[] = [
