@@ -25,6 +25,86 @@ const RED = '#E88080'
 
 let removeZoom: (() => void) | null = null
 
+// ---------- stahování modelů do mezipaměti prohlížeče ----------
+// Začíná hned po načtení stránky (ještě před povolením kamery a před naskenováním mapy) a běží na pozadí
+// po sadách: sada 1 Zvíkov, sada 1 Frymburk, sada 2 Zvíkov, sada 2 Frymburk atd. Modely, které si uživatel
+// zvolí dřív, se stahují přednostně (pozadí počká) a sdílí stejné stahování, takže se nic nestahuje dvakrát.
+const MB = 1024 * 1024
+const progress = new Map<string, {got: number, total: number}>()
+const cache = new Map<string, Promise<void>>()
+let notifyProgress: () => void = () => {}
+let foreground: () => boolean = () => false   // true, dokud se stahuje model, na který uživatel čeká
+
+const prefetch = (url: string): Promise<void> => {
+  let p = cache.get(url)
+  if (p) return p
+  p = (async () => {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const st = {got: 0, total: 0}
+        progress.set(url, st)
+        const res = await fetch(url)
+        if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`)
+        st.total = Number(res.headers.get('content-length')) || 8 * MB
+        const reader = res.body.getReader()
+        for (;;) {
+          const {done, value} = await reader.read()
+          if (done) break
+          st.got += value.length
+          notifyProgress()
+        }
+        st.total = st.got
+        return
+      } catch (err) {
+        console.error('stažení modelu selhalo', url, err)
+        await new Promise(r => window.setTimeout(r, 1000))
+      }
+    }
+    throw new Error(`model se nepodařilo stáhnout: ${url}`)
+  })()
+  p.catch(() => { cache.delete(url) })
+  cache.set(url, p)
+  return p
+}
+
+// hladina přehrady je plochá ve skutečné výšce hladiny a ořezaná terénem; pro současný terén (RUIAN) je zvláštní soubor
+const RIVER_URL = {
+  fry: ['assets/modely/Frymburk_Vltava_soucasny_tok.glb', 'assets/modely/Frymburk_Vltava_soucasny_tok_RUIAN.glb'],
+  zvi: ['assets/modely/Zvikov_Vltava_soucasny_tok.glb', 'assets/modely/Zvikov_Vltava_soucasny_tok_RUIAN.glb'],
+}
+
+// pořadí stahování: sada 1 Zvíkov, sada 1 Frymburk, sada 2 Zvíkov, sada 2 Frymburk, ... (u sady 1 nejdřív období z tištěné mapy)
+const preloadGroups = (): string[][] => {
+  const groups: string[][] = []
+  for (const set of [1, 2, 3, 4]) {
+    for (const terr of ['zvi', 'fry'] as const) {
+      const urls: string[] = []
+      const add = (u?: string) => { if (u && !urls.includes(u)) urls.push(u) }
+      TEST_TASKS.filter(t => t.set === set && t.terr === terr).forEach((t) => {
+        const periods = Object.keys(t.files).sort((a, b) => (a === t.start ? -1 : b === t.start ? 1 : 0))
+        periods.forEach((per) => { add(t.base || baseUrl(terr, per as 'CO' | 'SMO5' | 'RUIAN')); add(t.files[per]) })
+      })
+      if (set === 1) RIVER_URL[terr].forEach(add)   // hladina (malé soubory) hned za sadou 1 daného území
+      if (urls.length) groups.push(urls)
+    }
+  }
+  return groups
+}
+
+const startPreload = async () => {
+  try {
+    const conn = (navigator as unknown as {connection?: {saveData?: boolean}}).connection
+    if (conn && conn.saveData) return   // úsporný režim dat: stahuje se jen na požádání
+  } catch (err) { /* nic */ }
+  for (const urls of preloadGroups()) {
+    for (const u of urls) {
+      while (foreground()) await new Promise(r => window.setTimeout(r, 250))   // uživatel čeká na vlastní model
+      try { await prefetch(u) } catch (err) { console.error('stahování na pozadí', u, err) }
+    }
+  }
+}
+startPreload()
+
 ecs.registerComponent({
   name: 'test-mode',
   schema: {
@@ -129,41 +209,9 @@ ecs.registerComponent({
     // legenda s měřítkem je součástí modelů úloh, samostatná legenda ve scéně by ji zdvojila
     hide(s.fryLegend); hide(s.zviLegend)
 
-    // ---------- stahování modelů do mezipaměti prohlížeče ----------
-    const MB = 1024 * 1024
-    const progress = new Map<string, {got: number, total: number}>()
-    const cache = new Map<string, Promise<void>>()
-    const prefetch = (url: string): Promise<void> => {
-      let p = cache.get(url)
-      if (p) return p
-      p = (async () => {
-        for (let attempt = 0; attempt < 3; attempt++) {
-          try {
-            const st = {got: 0, total: 0}
-            progress.set(url, st)
-            const res = await fetch(url)
-            if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`)
-            st.total = Number(res.headers.get('content-length')) || 8 * MB
-            const reader = res.body.getReader()
-            for (;;) {
-              const {done, value} = await reader.read()
-              if (done) break
-              st.got += value.length
-              renderLoader()
-            }
-            st.total = st.got
-            return
-          } catch (err) {
-            console.error('stažení modelu selhalo', url, err)
-            await new Promise(r => window.setTimeout(r, 1000))
-          }
-        }
-        throw new Error(`model se nepodařilo stáhnout: ${url}`)
-      })()
-      p.catch(() => { cache.delete(url) })
-      cache.set(url, p)
-      return p
-    }
+    // stahování modelů do mezipaměti prohlížeče: viz prefetch() a startPreload() nahoře (běží už od načtení stránky)
+    foreground = () => loaderUrls.length > 0
+    notifyProgress = () => renderLoader()
 
     const isPeriodTask = () => task.set === 1   // přepínání období: sada Změny (u všech území)
     const periodIndex = () => (isPeriodTask() ? period : PERIODS.indexOf(task.period))
@@ -243,10 +291,6 @@ ecs.registerComponent({
 
     // ---------- zobrazení úlohy ----------
     // hladina přehrady je plochá ve skutečné výšce hladiny a ořezaná terénem; pro současný terén (RUIAN) je zvláštní soubor
-    const RIVER_URL = {
-      fry: ['assets/modely/Frymburk_Vltava_soucasny_tok.glb', 'assets/modely/Frymburk_Vltava_soucasny_tok_RUIAN.glb'],
-      zvi: ['assets/modely/Zvikov_Vltava_soucasny_tok.glb', 'assets/modely/Zvikov_Vltava_soucasny_tok_RUIAN.glb'],
-    }
     const showRiver = () => {
       (['fry', 'zvi'] as const).forEach((t) => {
         if (t === task.terr && riverOn) {
